@@ -1,0 +1,90 @@
+etcd:
+    image: coreos/etcd
+    name: etcd
+    ports:
+       - "4001:4001"
+proxy:
+    image: diogok/proxy-docker
+    name: proxy
+    ports:
+        - "80:80"
+datahub:
+    image: cncflora/datahub
+    name: datahub
+    ports:
+        - "80"
+    volumes:
+        - "/var/lib/couchdb:/var/lib/couchdb:rw"
+connect:
+    image: cncflora/connect
+    name: connect
+    ports:
+        - "8080"
+    volumes:
+        - "/var/floraconnect:/var/floraconnect:rw"
+    environment:
+        PROXY: "/connect"
+dwc:
+    image: cncflora/dwc-services
+    name: dwc
+    ports:
+        - "8080"
+    environment:
+        PROXY: "/dwc"
+flora:
+    image: cncflora/floradata
+    name: flora
+    ports:
+        - "80"
+services:
+    image: cncflora/services
+    name: services
+    ports:
+        - "8080"
+    environment:
+        DB: "livro_vermelho"
+entrypoint: 
+    image: cncflora/entrypoint
+    name: entrypoint
+    ports:
+        - "80"
+plantas_raras_cerrado_occurrences:
+    image: cncflora/occurrences
+    name: plantas_raras_cerrado_occurrences
+    ports:
+        - "8080"
+    environment:
+        PREFIX: "plantas_raras_cerrado"
+        CONTEXT: "plantas_raras_cerrado"
+        DB: "plantas_raras_cerrado"
+        BASE: "/plantas_raras_cerrado_occurrences"
+plantas_raras_cerrado_profiles:
+    image: cncflora/profiles
+    name: plantas_raras_cerrado_profiles
+    ports:
+        - "80"
+    environment:
+        PREFIX: "plantas_raras_cerrado"
+        CONTEXT: "plantas_raras_cerrado"
+        DB: "plantas_raras_cerrado"
+        BASE: "/plantas_raras_cerrado_profiles"
+planos_cerrado_occurrences:
+    image: cncflora/occurrences
+    name: planos_cerrado_occurrences
+    ports:
+        - "8080"
+    environment:
+        PREFIX: "planos_cerrado"
+        CONTEXT: "planos_cerrado"
+        DB: "planos_cerrado"
+        BASE: "/planos_cerrado_occurrences"
+planos_cerrado_profiles:
+    image: cncflora/profiles
+    name: planos_cerrado_profiles
+    ports:
+        - "80"
+    environment:
+        PREFIX: "planos_cerrado"
+        CONTEXT: "planos_cerrado"
+        DB: "planos_cerrado"
+        BASE: "/planos_cerrado_profiles"
