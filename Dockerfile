@@ -16,7 +16,7 @@ RUN mkdir -p /var/log/supervisor
 ADD fig.yml /root/fig.yml
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-RUN cd /root && fige -d && sleep 10 && docker2etcd
+RUN cd /root && fige -d -c 'docker2etcd -u'
 
 EXPOSE 22 80
 CMD ["/usr/bin/supervisord"]

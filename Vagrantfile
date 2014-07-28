@@ -17,5 +17,6 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :inline => "apt-get install ruby -y"
   config.vm.provision :shell, :inline => "gem sources -r http://rubygems.org/ && gem sources -a https://rubygems.org/"
   config.vm.provision :shell, :inline => "gem install small-ops"
+  config.vm.provision :shell, :inline => "export HOST=192.168.50.200 && cd /vagrant && fige -d -c 'docker2etcd -u' && ruby ping.rb"
 end
 

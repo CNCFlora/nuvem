@@ -24,16 +24,16 @@ connect:
         - "/var/floraconnect:/var/floraconnect:rw"
     environment:
         PROXY: "/connect"
-dwc:
+dwc-services:
     image: cncflora/dwc-services
-    name: dwc
+    name: dwc-services
     ports:
         - "8080"
     environment:
-        PROXY: "/dwc"
-flora:
+        PROXY: "/dwc-services"
+floradata:
     image: cncflora/floradata
-    name: flora
+    name: floradata
     ports:
         - "80"
 services:
@@ -48,6 +48,16 @@ entrypoint:
     name: entrypoint
     ports:
         - "80"
+plantas_raras_cerrado_checklist:
+    image: cncflora/checklist
+    name: plantas_raras_cerrado_checklist
+    ports:
+        - "8080"
+    environment:
+        PREFIX: "plantas_raras_cerrado"
+        CONTEXT: "plantas_raras_cerrado"
+        DB: "plantas_raras_cerrado"
+        BASE: "/plantas_raras_cerrado_checklist"
 plantas_raras_cerrado_occurrences:
     image: cncflora/occurrences
     name: plantas_raras_cerrado_occurrences
@@ -68,6 +78,16 @@ plantas_raras_cerrado_profiles:
         CONTEXT: "plantas_raras_cerrado"
         DB: "plantas_raras_cerrado"
         BASE: "/plantas_raras_cerrado_profiles"
+planos_cerrado_checklist:
+    image: cncflora/checklist
+    name: planos_cerrado_checklist
+    ports:
+        - "8080"
+    environment:
+        PREFIX: "planos_cerrado"
+        CONTEXT: "planos_cerrado"
+        DB: "planos_cerrado"
+        BASE: "/planos_cerrado_checklist"
 planos_cerrado_occurrences:
     image: cncflora/occurrences
     name: planos_cerrado_occurrences
