@@ -8,6 +8,8 @@ proxy:
     name: proxy
     ports:
         - "80:80"
+    links:
+        - "etcd:etcd"
 datahub:
     image: cncflora/datahub
     name: datahub
