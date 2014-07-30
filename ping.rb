@@ -9,7 +9,9 @@ data.keys.each {|k|
     val = data[k]
     if val.has_key?("host") && val.has_key?("port") then
         puts "Ping #{val["name"]}"
-        Net::HTTP.get(URI("http://#{val["host"]}:#{val["port"]}"))
+        url = "http://#{val["host"]}:#{val["port"]}"
+        puts url
+        Net::HTTP.get(URI(url))
         puts "ok"
     end
 }
