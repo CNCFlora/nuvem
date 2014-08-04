@@ -80,6 +80,16 @@ plantas_raras_cerrado_profiles:
         CONTEXT: "plantas_raras_cerrado"
         DB: "plantas_raras_cerrado"
         BASE: "/plantas_raras_cerrado_profiles"
+plantas_raras_cerrado_assessment:
+    image: cncflora/assessment
+    name: plantas_raras_cerrado_assessment
+    ports:
+        - "8080"
+    environment:
+        PREFIX: "plantas_raras_cerrado"
+        CONTEXT: "plantas_raras_cerrado"
+        DB: "plantas_raras_cerrado"
+        BASE: "/plantas_raras_cerrado_assessment"
 planos_cerrado_checklist:
     image: cncflora/checklist
     name: planos_cerrado_checklist
