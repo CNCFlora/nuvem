@@ -2,6 +2,7 @@
 
 export HOST=$(hostname -I | awk '{ print $1 }')
 export ETCD=http://$HOST/etcd
+export ROOT_APP=entrypoint
 
 fige -d -c 'docker2etcd -u'
 

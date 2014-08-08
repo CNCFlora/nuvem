@@ -26,13 +26,13 @@ connect:
         - "/var/floraconnect:/var/floraconnect:rw"
     environment:
         PROXY: "/connect"
-dwc-services:
-    image: cncflora/dwc-services
-    name: dwc-services
+dwc_services:
+    image: cncflora/dwc_services
+    name: dwc_services
     ports:
         - "8080"
     environment:
-        PROXY: "/dwc-services"
+        PROXY: "/dwc_services"
 floradata:
     image: cncflora/floradata
     name: floradata
@@ -120,3 +120,13 @@ planos_cerrado_profiles:
         CONTEXT: "planos_cerrado"
         DB: "planos_cerrado"
         BASE: "/planos_cerrado_profiles"
+planos_cerrado_assessment:
+    image: cncflora/assessment
+    name: planos_cerrado_assessment
+    ports:
+        - "8080"
+    environment:
+        PREFIX: "planos_cerrado"
+        CONTEXT: "planos_cerrado"
+        DB: "planos_cerrado"
+        BASE: "/planos_cerrado_assessment"
