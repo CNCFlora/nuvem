@@ -3,9 +3,17 @@ etcd:
     name: etcd
     ports:
        - "4001:4001"
+logstash:
+    image: diogok/logstash
+    name: logstash
+    ports:
+        - 80
+        - 9514
 proxy:
     image: diogok/proxy-docker
     name: proxy
+    env:
+        ROOT_APP: "entrypoint"
     ports:
         - "80:80"
     links:
