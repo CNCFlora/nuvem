@@ -35,7 +35,7 @@ connect:
     environment:
         PROXY: "/connect"
 dwc_services:
-    image: cncflora/dwc_services
+    image: cncflora/dwc-services
     name: dwc_services
     ports:
         - "8080"
