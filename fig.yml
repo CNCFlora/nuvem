@@ -12,12 +12,21 @@ logstash:
 proxy:
     image: diogok/proxy-docker
     name: proxy
-    env:
+    environment:
         ROOT_APP: "entrypoint"
     ports:
         - "80:80"
     links:
         - "etcd:etcd"
+dockerui:
+    image: crosbymichael/dockerui
+    name: dockerui
+    env:
+        - "/docker.sock"
+    volumes:
+        - "/var/run/docker.sock:/docker.sock"
+    ports:
+        - "9000"
 datahub:
     image: cncflora/datahub
     name: datahub
