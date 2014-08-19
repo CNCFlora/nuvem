@@ -9,6 +9,11 @@ logstash:
     ports:
         - 80
         - 9514
+entrypoint: 
+    image: cncflora/entrypoint
+    name: entrypoint
+    ports:
+        - "80"
 proxy:
     image: diogok/proxy-docker
     name: proxy
@@ -16,6 +21,7 @@ proxy:
         ROOT_APP: "entrypoint"
     ports:
         - "80:80"
+        - "9001"
     links:
         - "etcd:etcd"
 dockerui:
@@ -32,6 +38,7 @@ datahub:
     name: datahub
     ports:
         - "80"
+        - "9001"
     volumes:
         - "/var/lib/couchdb:/var/lib/couchdb:rw"
 connect:
@@ -39,6 +46,7 @@ connect:
     name: connect
     ports:
         - "8080"
+        - "9001"
     volumes:
         - "/var/floraconnect:/var/floraconnect:rw"
     environment:
@@ -48,6 +56,7 @@ dwc_services:
     name: dwc_services
     ports:
         - "8080"
+        - "9001"
     environment:
         PROXY: "/dwc_services"
 floradata:
@@ -60,18 +69,15 @@ services:
     name: services
     ports:
         - "8080"
+        - "9001"
     environment:
         DB: "livro_vermelho"
-entrypoint: 
-    image: cncflora/entrypoint
-    name: entrypoint
-    ports:
-        - "80"
 plantas_raras_cerrado_checklist:
     image: cncflora/checklist
     name: plantas_raras_cerrado_checklist
     ports:
         - "8080"
+        - "9001"
     environment:
         PREFIX: "plantas_raras_cerrado"
         CONTEXT: "plantas_raras_cerrado"
@@ -82,6 +88,7 @@ plantas_raras_cerrado_occurrences:
     name: plantas_raras_cerrado_occurrences
     ports:
         - "8080"
+        - "9001"
     environment:
         PREFIX: "plantas_raras_cerrado"
         CONTEXT: "plantas_raras_cerrado"
@@ -92,6 +99,7 @@ plantas_raras_cerrado_profiles:
     name: plantas_raras_cerrado_profiles
     ports:
         - "80"
+        - "9001"
     environment:
         PREFIX: "plantas_raras_cerrado"
         CONTEXT: "plantas_raras_cerrado"
@@ -102,6 +110,7 @@ plantas_raras_cerrado_assessment:
     name: plantas_raras_cerrado_assessment
     ports:
         - "8080"
+        - "9001"
     environment:
         PREFIX: "plantas_raras_cerrado"
         CONTEXT: "plantas_raras_cerrado"
@@ -112,6 +121,7 @@ planos_cerrado_checklist:
     name: planos_cerrado_checklist
     ports:
         - "8080"
+        - "9001"
     environment:
         PREFIX: "planos_cerrado"
         CONTEXT: "planos_cerrado"
@@ -122,6 +132,7 @@ planos_cerrado_occurrences:
     name: planos_cerrado_occurrences
     ports:
         - "8080"
+        - "9001"
     environment:
         PREFIX: "planos_cerrado"
         CONTEXT: "planos_cerrado"
@@ -132,6 +143,7 @@ planos_cerrado_profiles:
     name: planos_cerrado_profiles
     ports:
         - "80"
+        - "9001"
     environment:
         PREFIX: "planos_cerrado"
         CONTEXT: "planos_cerrado"
@@ -142,6 +154,7 @@ planos_cerrado_assessment:
     name: planos_cerrado_assessment
     ports:
         - "8080"
+        - "9001"
     environment:
         PREFIX: "planos_cerrado"
         CONTEXT: "planos_cerrado"
