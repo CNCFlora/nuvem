@@ -160,3 +160,47 @@ planos_cerrado_assessment:
         CONTEXT: "planos_cerrado"
         DB: "planos_cerrado"
         BASE: "/planos_cerrado_assessment"
+prioritarias_2014_checklist:
+    image: cncflora/checklist
+    name: prioritarias_2014_checklist
+    ports:
+        - "8080"
+        - "9001"
+    environment:
+        PREFIX: "prioritarias_2014"
+        CONTEXT: "prioritarias_2014"
+        DB: "prioritarias_2014"
+        BASE: "/prioritarias_2014_checklist"
+prioritarias_2014_occurrences:
+    image: cncflora/occurrences
+    name: prioritarias_2014_occurrences
+    ports:
+        - "8080"
+        - "9001"
+    environment:
+        PREFIX: "prioritarias_2014"
+        CONTEXT: "prioritarias_2014"
+        DB: "prioritarias_2014"
+        BASE: "/prioritarias_2014_occurrences"
+prioritarias_2014_profiles:
+    image: cncflora/profiles
+    name: prioritarias_2014_profiles
+    ports:
+        - "80"
+        - "9001"
+    environment:
+        PREFIX: "prioritarias_2014"
+        CONTEXT: "prioritarias_2014"
+        DB: "prioritarias_2014"
+        BASE: "/prioritarias_2014_profiles"
+prioritarias_2014_assessment:
+    image: cncflora/assessment
+    name: prioritarias_2014_assessment
+    ports:
+        - "8080"
+        - "9001"
+    environment:
+        PREFIX: "prioritarias_2014"
+        CONTEXT: "prioritarias_2014"
+        DB: "prioritarias_2014"
+        BASE: "/prioritarias_2014_assessment"
