@@ -1,7 +1,5 @@
 # CNCFlora Nuvem
 
-_EXPERIMENTAL_
-
 The whole "cloud" of cncflora apps, unified.
 
 ## Try it
@@ -30,6 +28,39 @@ You will need [docker](http://docker.io), [ruby](http://ruby-lang.org) and [smal
 This will take time at the first run, later it gets faster.
 
 Them access it at http://yourip/entrypoint . 
+
+## Deploy
+
+- Get a recent kernel (>=3.8)
+- Get [docker](https://docs.docker.com/installation/).
+- Get git:
+
+    sudo apt-get install git
+
+- Get ruby and small-ops:
+
+    sudo apt-get install ruby
+    sudo gem install small-ops
+
+- Clone this repository:
+
+    git clone https://github.com/CNCFlora/nuvem
+    cd nuvem
+
+- Download the images (this will take a while):
+
+    ./pull.sh
+
+- Setup your env:
+
+    export HOST=your_public_ip_or_domain
+
+- Run everything:
+
+
+   ./run.sh
+
+- Access your ip/domain and use the apps
 
 ## License
 
