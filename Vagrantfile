@@ -5,8 +5,8 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/trusty64"
 
   config.vm.provider "virtualbox" do |v|
-    v.memory = 2048
-    v.cpus = 2
+    v.memory = 4096
+    v.cpus = 4
   end
 
   config.vm.network "private_network", ip: "192.168.50.200"
@@ -17,6 +17,6 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :inline => "apt-get install ruby -y"
   config.vm.provision :shell, :inline => "gem sources -r http://rubygems.org/ && gem sources -a https://rubygems.org/"
   config.vm.provision :shell, :inline => "gem install small-ops"
-  config.vm.provision :shell, :inline => "export HOST=192.168.50.200 && cd /vagrant && fige -c 'docker2etcd -u' && ruby ping.rb"
+#config.vm.provision :shell, :inline => "export HOST=192.168.50.200 && cd /vagrant && fige -c 'docker2etcd -u' && ruby ping.rb"
 end
 
