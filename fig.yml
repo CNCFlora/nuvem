@@ -1,5 +1,5 @@
 etcd:
-    image: coreos/etcd
+    image: cncflora/etcd
     name: etcd
     ports:
        - "4001:4001"
@@ -9,16 +9,19 @@ logstash:
     ports:
         - 80
         - 9514
-entrypoint: 
-    image: cncflora/entrypoint
-    name: entrypoint
+        - 9001
+portal:
+    image: cncflora/portal
+    name: portal
+    environment:
+      BASE: "/portal"
     ports:
-        - "80"
+      - 8889
 proxy:
     image: diogok/proxy-docker
     name: proxy
     environment:
-        ROOT_APP: "entrypoint"
+        ROOT_APP: "portal"
     ports:
         - "80:80"
         - "9001"
@@ -32,6 +35,16 @@ datahub:
         - "9001"
     volumes:
         - "/var/lib/couchdb:/var/lib/couchdb:rw"
+dashboard:
+  image: cncflora/linux-dash
+  name: dashboard
+  ports:
+    - "80"
+entrypoint: 
+    image: cncflora/entrypoint
+    name: entrypoint
+    ports:
+        - "80"
 connect:
     image: cncflora/connect
     name: connect
@@ -62,7 +75,9 @@ services:
         - "8080"
         - "9001"
     environment:
-        DB: "livro_vermelho"
+        DB: "public"
+        PROXY: "/services"
+        BASE: "/services"
 plantas_raras_cerrado_checklist:
     image: cncflora/checklist
     name: plantas_raras_cerrado_checklist
