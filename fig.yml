@@ -16,7 +16,8 @@ portal:
     environment:
       BASE: "/portal"
     ports:
-      - 8889
+      - 8000
+      - 9001
 proxy:
     image: diogok/proxy-docker
     name: proxy
