@@ -10,11 +10,33 @@ logstash:
         - 80
         - 9514
         - 9001
+datahub:
+    image: cncflora/datahub
+    name: datahub
+    ports:
+        - "80"
+        - "9001"
+    volumes:
+        - "/var/lib/couchdb:/var/lib/couchdb:rw"
+services:
+    image: cncflora/services
+    name: services
+    links:
+        - "datahub:datahub"
+    ports:
+        - "8080"
+        - "9001"
+    environment:
+        DB: "public"
+        PROXY: "/services"
+        BASE: "/services"
 portal:
     image: cncflora/portal
     name: portal
     environment:
       BASE: "/portal"
+    links:
+        - "services:services"
     ports:
       - 8000
       - 9001
@@ -28,14 +50,6 @@ proxy:
         - "9001"
     links:
         - "etcd:etcd"
-datahub:
-    image: cncflora/datahub
-    name: datahub
-    ports:
-        - "80"
-        - "9001"
-    volumes:
-        - "/var/lib/couchdb:/var/lib/couchdb:rw"
 dashboard:
   image: cncflora/linux-dash
   name: dashboard
@@ -69,16 +83,6 @@ floradata:
     name: floradata
     ports:
         - "80"
-services:
-    image: cncflora/services
-    name: services
-    ports:
-        - "8080"
-        - "9001"
-    environment:
-        DB: "public"
-        PROXY: "/services"
-        BASE: "/services"
 plantas_raras_cerrado_checklist:
     image: cncflora/checklist
     name: plantas_raras_cerrado_checklist
