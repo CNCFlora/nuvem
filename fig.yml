@@ -35,8 +35,6 @@ portal:
     name: portal
     environment:
       BASE: "/portal"
-    links:
-        - "services:services"
     ports:
       - 8000
       - 9001
