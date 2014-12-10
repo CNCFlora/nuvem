@@ -21,8 +21,6 @@ datahub:
 services:
     image: cncflora/services
     name: services
-    links:
-        - "datahub:datahub"
     ports:
         - "8080"
         - "9001"
@@ -48,11 +46,6 @@ proxy:
         - "9001"
     links:
         - "etcd:etcd"
-dashboard:
-  image: cncflora/linux-dash
-  name: dashboard
-  ports:
-    - "80"
 entrypoint: 
     image: cncflora/entrypoint
     name: entrypoint
@@ -81,135 +74,35 @@ floradata:
     name: floradata
     ports:
         - "80"
-plantas_raras_cerrado_checklist:
+checklist:
     image: cncflora/checklist
-    name: plantas_raras_cerrado_checklist
+    name: checklist
     ports:
         - "8080"
         - "9001"
     environment:
-        PREFIX: "plantas_raras_cerrado"
-        CONTEXT: "plantas_raras_cerrado"
-        DB: "plantas_raras_cerrado"
         BASE: "/plantas_raras_cerrado_checklist"
-plantas_raras_cerrado_occurrences:
+occurrences:
     image: cncflora/occurrences
-    name: plantas_raras_cerrado_occurrences
+    name: occurrences
     ports:
         - "8080"
         - "9001"
     environment:
-        PREFIX: "plantas_raras_cerrado"
-        CONTEXT: "plantas_raras_cerrado"
-        DB: "plantas_raras_cerrado"
         BASE: "/plantas_raras_cerrado_occurrences"
-plantas_raras_cerrado_profiles:
+profiles:
     image: cncflora/profiles
-    name: plantas_raras_cerrado_profiles
+    name: profiles
     ports:
         - "80"
         - "9001"
     environment:
-        PREFIX: "plantas_raras_cerrado"
-        CONTEXT: "plantas_raras_cerrado"
-        DB: "plantas_raras_cerrado"
         BASE: "/plantas_raras_cerrado_profiles"
-plantas_raras_cerrado_assessment:
+assessment:
     image: cncflora/assessment
-    name: plantas_raras_cerrado_assessment
+    name: assessment
     ports:
         - "8080"
         - "9001"
     environment:
-        PREFIX: "plantas_raras_cerrado"
-        CONTEXT: "plantas_raras_cerrado"
-        DB: "plantas_raras_cerrado"
         BASE: "/plantas_raras_cerrado_assessment"
-planos_cerrado_checklist:
-    image: cncflora/checklist
-    name: planos_cerrado_checklist
-    ports:
-        - "8080"
-        - "9001"
-    environment:
-        PREFIX: "planos_cerrado"
-        CONTEXT: "planos_cerrado"
-        DB: "planos_cerrado"
-        BASE: "/planos_cerrado_checklist"
-planos_cerrado_occurrences:
-    image: cncflora/occurrences
-    name: planos_cerrado_occurrences
-    ports:
-        - "8080"
-        - "9001"
-    environment:
-        PREFIX: "planos_cerrado"
-        CONTEXT: "planos_cerrado"
-        DB: "planos_cerrado"
-        BASE: "/planos_cerrado_occurrences"
-planos_cerrado_profiles:
-    image: cncflora/profiles
-    name: planos_cerrado_profiles
-    ports:
-        - "80"
-        - "9001"
-    environment:
-        PREFIX: "planos_cerrado"
-        CONTEXT: "planos_cerrado"
-        DB: "planos_cerrado"
-        BASE: "/planos_cerrado_profiles"
-planos_cerrado_assessment:
-    image: cncflora/assessment
-    name: planos_cerrado_assessment
-    ports:
-        - "8080"
-        - "9001"
-    environment:
-        PREFIX: "planos_cerrado"
-        CONTEXT: "planos_cerrado"
-        DB: "planos_cerrado"
-        BASE: "/planos_cerrado_assessment"
-prioritarias_2014_checklist:
-    image: cncflora/checklist
-    name: prioritarias_2014_checklist
-    ports:
-        - "8080"
-        - "9001"
-    environment:
-        PREFIX: "prioritarias_2014"
-        CONTEXT: "prioritarias_2014"
-        DB: "prioritarias_2014"
-        BASE: "/prioritarias_2014_checklist"
-prioritarias_2014_occurrences:
-    image: cncflora/occurrences
-    name: prioritarias_2014_occurrences
-    ports:
-        - "8080"
-        - "9001"
-    environment:
-        PREFIX: "prioritarias_2014"
-        CONTEXT: "prioritarias_2014"
-        DB: "prioritarias_2014"
-        BASE: "/prioritarias_2014_occurrences"
-prioritarias_2014_profiles:
-    image: cncflora/profiles
-    name: prioritarias_2014_profiles
-    ports:
-        - "80"
-        - "9001"
-    environment:
-        PREFIX: "prioritarias_2014"
-        CONTEXT: "prioritarias_2014"
-        DB: "prioritarias_2014"
-        BASE: "/prioritarias_2014_profiles"
-prioritarias_2014_assessment:
-    image: cncflora/assessment
-    name: prioritarias_2014_assessment
-    ports:
-        - "8080"
-        - "9001"
-    environment:
-        PREFIX: "prioritarias_2014"
-        CONTEXT: "prioritarias_2014"
-        DB: "prioritarias_2014"
-        BASE: "/prioritarias_2014_assessment"

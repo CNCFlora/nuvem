@@ -10,9 +10,15 @@ The easiest way.
 
 You will need [VirtualBox](http://virtualbox.org) and [Vagrant](http://www.vagrantup.com/), them at this directory run:
 
-    vagrant up
+    $ vagrant up
 
-This will take time ; )
+This will build the virtual machine. When ready, acess it and run all apps.
+
+    $ vagrant ssh
+    $ cd /vagrant
+    $ ./run.sh
+
+This will take a while : )
 
 Wait while the VM is built them access [http://192.168.50.200/entrypoint](http://192.168.50.200/entrypoiny).
 
@@ -20,14 +26,16 @@ Wait while the VM is built them access [http://192.168.50.200/entrypoint](http:/
 
 Little more complex, but real and faster way.
 
-You will need [docker](http://docker.io), [ruby](http://ruby-lang.org) and [small-ops](http://github.com/diogok/small-ops) installed, them at this directory run:
+You will need git, [docker](http://docker.io), [ruby](http://ruby-lang.org) and [small-ops](http://github.com/diogok/small-ops) installed, them at this directory run:
 
-    fige -d -h your_ip_here -c 'docker2etcd -u'
-    ruby ping.rb
+    
+    $ git clone git@github.com:CNCFlora/nuvem
+    $ cd nuvem
+    $ ./run.sh // maybe HOST=your_ip ./run.sh
 
-This will take time at the first run, later it gets faster.
+This will take time at the first run, them it gets faster.
 
-Them access it at http://yourip/entrypoint . 
+Them access it at http://yourip. 
 
 ## Deploy
 
@@ -35,30 +43,30 @@ Them access it at http://yourip/entrypoint .
 - Get [docker](https://docs.docker.com/installation/).
 - Get git:
 
-    sudo apt-get install git
+    $ sudo apt-get install git
 
 - Get ruby and small-ops:
 
-    sudo apt-get install ruby
-    sudo gem install small-ops
+    $ sudo apt-get install ruby
+    $ sudo gem install small-ops
 
 - Clone this repository:
 
-    git clone https://github.com/CNCFlora/nuvem
-    cd nuvem
+    $ git clone https://github.com/CNCFlora/nuvem
+    $ cd nuvem
 
 - Download the images (this will take a while):
 
-    ./pull.sh
+    $ ./pull.sh
 
 - Setup your env:
 
-    export HOST=your_public_ip_or_domain
+    $ export HOST=your_public_ip_or_domain
 
 - Run everything:
 
 
-   ./run.sh
+   $ ./run.sh
 
 - Access your ip/domain and use the apps
 
