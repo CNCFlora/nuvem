@@ -65,7 +65,6 @@ Them access it at http://yourip.
 
 - Run everything:
 
-
    $ ./run.sh
 
 - Access your ip/domain and use the apps

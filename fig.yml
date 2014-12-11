@@ -10,6 +10,24 @@ logstash:
         - 80
         - 9514
         - 9001
+portal:
+    image: cncflora/portal
+    name: portal
+    environment:
+      BASE: "/portal"
+    ports:
+      - 8000
+      - 9001
+proxy:
+    image: cncflora/proxy 
+    name: proxy
+    environment:
+        ROOT_APP: "portal"
+    ports:
+        - "80:80"
+        - "9001"
+    links:
+        - "etcd:etcd"
 datahub:
     image: cncflora/datahub
     name: datahub
@@ -28,24 +46,6 @@ services:
         DB: "public"
         PROXY: "/services"
         BASE: "/services"
-portal:
-    image: cncflora/portal
-    name: portal
-    environment:
-      BASE: "/portal"
-    ports:
-      - 8000
-      - 9001
-proxy:
-    image: diogok/proxy-docker
-    name: proxy
-    environment:
-        ROOT_APP: "portal"
-    ports:
-        - "80:80"
-        - "9001"
-    links:
-        - "etcd:etcd"
 entrypoint: 
     image: cncflora/entrypoint
     name: entrypoint
@@ -81,7 +81,7 @@ checklist:
         - "8080"
         - "9001"
     environment:
-        BASE: "/plantas_raras_cerrado_checklist"
+        BASE: "/checklist"
 occurrences:
     image: cncflora/occurrences
     name: occurrences
@@ -89,7 +89,7 @@ occurrences:
         - "8080"
         - "9001"
     environment:
-        BASE: "/plantas_raras_cerrado_occurrences"
+        BASE: "/occurrences"
 profiles:
     image: cncflora/profiles
     name: profiles
@@ -97,7 +97,7 @@ profiles:
         - "80"
         - "9001"
     environment:
-        BASE: "/plantas_raras_cerrado_profiles"
+        BASE: "/profiles"
 assessment:
     image: cncflora/assessment
     name: assessment
@@ -105,4 +105,4 @@ assessment:
         - "8080"
         - "9001"
     environment:
-        BASE: "/plantas_raras_cerrado_assessment"
+        BASE: "/assessment"
