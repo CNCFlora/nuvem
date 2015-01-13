@@ -28,14 +28,22 @@ proxy:
         - "9001"
     links:
         - "etcd:etcd"
-datahub:
-    image: cncflora/datahub
-    name: datahub
+elasticsearch:
+    image: cncflora/elasticsearch
+    name: elasticsearch
     ports:
-        - "80"
+        - "9200"
+        - "9001"
+couchdb:
+    image: cncflora/couchdb
+    name: couchdb
+    ports:
+        - "5984"
         - "9001"
     volumes:
         - "/var/lib/couchdb:/var/lib/couchdb:rw"
+    links:
+        - "elasticsearch:elasticsearch"
 services:
     image: cncflora/services
     name: services
