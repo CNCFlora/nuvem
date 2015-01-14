@@ -33,7 +33,6 @@ elasticsearch:
     name: elasticsearch
     ports:
         - "9200"
-        - "9001"
 couchdb:
     image: cncflora/couchdb
     name: couchdb
