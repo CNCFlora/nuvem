@@ -1,11 +1,11 @@
 etcd:
-    image: 192.168.50.1:5000/etcd
+    image: cncflora/etcd
     name: etcd
     restart: "always"
     ports:
        - "4001:4001"
 logstash:
-    image: 192.168.50.1:5000/logstash
+    image: diogok/logstash
     name: logstash
     restart: "always"
     ports:
@@ -13,7 +13,7 @@ logstash:
         - 9514
         - 9001
 portal:
-    image: 192.168.50.1:5000/portal
+    image: cncflora/portal
     name: portal
     restart: "always"
     environment:
@@ -22,7 +22,7 @@ portal:
       - 8000
       - 9001
 proxy:
-    image: 192.168.50.1:5000/proxy 
+    image: cncflora/proxy 
     name: proxy
     restart: "always"
     environment:
@@ -33,13 +33,13 @@ proxy:
     links:
         - "etcd:etcd"
 elasticsearch:
-    image: 192.168.50.1:5000/elasticsearch
+    image: cncflora/elasticsearch
     name: elasticsearch
     restart: "always"
     ports:
         - "9200"
 couchdb:
-    image: 192.168.50.1:5000/couchdb
+    image: cncflora/couchdb
     name: couchdb
     restart: "always"
     ports:
@@ -50,7 +50,7 @@ couchdb:
     links:
         - "elasticsearch:elasticsearch"
 services:
-    image: 192.168.50.1:5000/services
+    image: cncflora/services
     name: services
     restart: "always"
     ports:
@@ -61,13 +61,13 @@ services:
         PROXY: "/services"
         BASE: "/services"
 entrypoint: 
-    image: 192.168.50.1:5000/entrypoint
+    image: cncflora/entrypoint
     name: entrypoint
     restart: "always"
     ports:
         - "80"
 connect:
-    image: 192.168.50.1:5000/connect
+    image: cncflora/connect
     name: connect
     restart: "always"
     ports:
@@ -78,7 +78,7 @@ connect:
     environment:
         PROXY: "/connect"
 dwc_services:
-    image: 192.168.50.1:5000/dwc-services
+    image: cncflora/dwc-services
     name: dwc_services
     restart: "always"
     ports:
@@ -87,13 +87,13 @@ dwc_services:
     environment:
         PROXY: "/dwc_services"
 floradata:
-    image: 192.168.50.1:5000/floradata
+    image: cncflora/floradata
     name: floradata
     restart: "always"
     ports:
         - "80"
 checklist:
-    image: 192.168.50.1:5000/checklist
+    image: cncflora/checklist
     name: checklist
     restart: "always"
     ports:
@@ -102,7 +102,7 @@ checklist:
     environment:
         BASE: "/checklist"
 occurrences:
-    image: 192.168.50.1:5000/occurrences
+    image: cncflora/occurrences
     name: occurrences
     restart: "always"
     ports:
@@ -111,7 +111,7 @@ occurrences:
     environment:
         BASE: "/occurrences"
 profiles:
-    image: 192.168.50.1:5000/profiles
+    image: cncflora/profiles
     name: profiles
     restart: "always"
     ports:
@@ -120,7 +120,7 @@ profiles:
     environment:
         BASE: "/profiles"
 assessments:
-    image: 192.168.50.1:5000/assessments
+    image: cncflora/assessments
     name: assessments
     restart: "always"
     ports:
