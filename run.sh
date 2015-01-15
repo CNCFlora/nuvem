@@ -26,5 +26,8 @@ for n in $(cat fig.yml | grep name | awk '{ print $2 }' ); do
   fi
 done
 
+fige -t proxy
+docker2etcd -c -u
+
 #fige -c 'docker2etcd -u; sleep 3' -u
 

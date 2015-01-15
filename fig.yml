@@ -1,26 +1,30 @@
 etcd:
-    image: cncflora/etcd
+    image: 192.168.50.1:5000/etcd
     name: etcd
+    restart: "always"
     ports:
        - "4001:4001"
 logstash:
-    image: diogok/logstash
+    image: 192.168.50.1:5000/logstash
     name: logstash
+    restart: "always"
     ports:
         - 80
         - 9514
         - 9001
 portal:
-    image: cncflora/portal
+    image: 192.168.50.1:5000/portal
     name: portal
+    restart: "always"
     environment:
       BASE: "/portal"
     ports:
       - 8000
       - 9001
 proxy:
-    image: cncflora/proxy 
+    image: 192.168.50.1:5000/proxy 
     name: proxy
+    restart: "always"
     environment:
         ROOT_APP: "portal"
     ports:
@@ -29,13 +33,15 @@ proxy:
     links:
         - "etcd:etcd"
 elasticsearch:
-    image: cncflora/elasticsearch
+    image: 192.168.50.1:5000/elasticsearch
     name: elasticsearch
+    restart: "always"
     ports:
         - "9200"
 couchdb:
-    image: cncflora/couchdb
+    image: 192.168.50.1:5000/couchdb
     name: couchdb
+    restart: "always"
     ports:
         - "5984"
         - "9001"
@@ -44,8 +50,9 @@ couchdb:
     links:
         - "elasticsearch:elasticsearch"
 services:
-    image: cncflora/services
+    image: 192.168.50.1:5000/services
     name: services
+    restart: "always"
     ports:
         - "8080"
         - "9001"
@@ -54,13 +61,15 @@ services:
         PROXY: "/services"
         BASE: "/services"
 entrypoint: 
-    image: cncflora/entrypoint
+    image: 192.168.50.1:5000/entrypoint
     name: entrypoint
+    restart: "always"
     ports:
         - "80"
 connect:
-    image: cncflora/connect
+    image: 192.168.50.1:5000/connect
     name: connect
+    restart: "always"
     ports:
         - "8080"
         - "9001"
@@ -69,45 +78,51 @@ connect:
     environment:
         PROXY: "/connect"
 dwc_services:
-    image: cncflora/dwc-services
+    image: 192.168.50.1:5000/dwc-services
     name: dwc_services
+    restart: "always"
     ports:
         - "8080"
         - "9001"
     environment:
         PROXY: "/dwc_services"
 floradata:
-    image: cncflora/floradata
+    image: 192.168.50.1:5000/floradata
     name: floradata
+    restart: "always"
     ports:
         - "80"
 checklist:
-    image: cncflora/checklist
+    image: 192.168.50.1:5000/checklist
     name: checklist
+    restart: "always"
     ports:
         - "8080"
         - "9001"
     environment:
         BASE: "/checklist"
 occurrences:
-    image: cncflora/occurrences
+    image: 192.168.50.1:5000/occurrences
     name: occurrences
+    restart: "always"
     ports:
         - "8080"
         - "9001"
     environment:
         BASE: "/occurrences"
 profiles:
-    image: cncflora/profiles
+    image: 192.168.50.1:5000/profiles
     name: profiles
+    restart: "always"
     ports:
         - "80"
         - "9001"
     environment:
         BASE: "/profiles"
-assessment:
-    image: cncflora/assessment
-    name: assessment
+assessments:
+    image: 192.168.50.1:5000/assessments
+    name: assessments
+    restart: "always"
     ports:
         - "8080"
         - "9001"
