@@ -7,5 +7,6 @@ export HOST
 export ETCD
 
 docker pull $(cat fig.yml | grep $1 | grep image | awk '{ print $2 }') 
-fige -t $1 -c 'docker2etcd -u'
+fige -t $1 -e "http://$(docker inspect --format='{{.NetworkSettings.IPAddress}}' etcd):4001"
+docker2etcd -u
 
