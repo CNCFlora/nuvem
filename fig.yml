@@ -133,12 +133,15 @@ migrator:
     name: migrator
     restart: "always"
     ports:
-      - "80"
+        - "80"
+    links:
+        - "couchdb:couchdb"
+        - "elasticsearch:elasticsearch"
 arquivos:
     image: cncflora/apache
     name: arquivos
     restart: "always"
     ports:
-      - "80"
+        - "80"
     volumes:
         - "/var/www:/var/www:rw"
