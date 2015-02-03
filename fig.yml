@@ -128,6 +128,12 @@ assessments:
         - "9001"
     environment:
         BASE: "/assessment"
+migrator:
+    image: cncflora/migrator
+    name: migrator
+    restart: "always"
+    ports:
+      - "80"
 arquivos:
     image: cncflora/apache
     name: arquivos
