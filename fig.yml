@@ -128,3 +128,11 @@ assessments:
         - "9001"
     environment:
         BASE: "/assessment"
+arquivos:
+    image: cncflora/apache
+    name: arquivos
+    restart: "always"
+    ports:
+      - "80"
+    volumes:
+        - "/var/www:/var/www:rw"
