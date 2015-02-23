@@ -153,3 +153,14 @@ wiki:
         - "80"
     volumes:
         - "/var/wiki:/var/www:rw"
+wiki-sftp:
+    image: asavartzeth/sftp
+    name: wiki-sftp
+    restart: "always"
+    ports:
+        - "2222:22"
+    environment:
+        SFTP_USER: "cncflora"
+        SFTP_PASS: "1cncflora2"
+    volumes:
+        - "/var/wiki:$SFTP_DATA_DIR/chroot/wiki:rw"
