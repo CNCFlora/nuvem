@@ -145,3 +145,11 @@ arquivos:
         - "80"
     volumes:
         - "/var/www:/var/www:rw"
+wiki:
+    image: cncflora/apache
+    name: wiki 
+    restart: "always"
+    ports:
+        - "80"
+    volumes:
+        - "/var/wiki:/var/www:rw"
