@@ -62,8 +62,7 @@ services:
     name: services
     restart: "always"
     ports:
-        - "8080"
-        - "9001"
+        - "80"
     environment:
         DB: "public"
         PROXY: "/services"
