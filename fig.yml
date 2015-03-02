@@ -12,14 +12,23 @@ logstash:
         - 80
         - 9514
         - 9001
+logspout:
+  image: gliderlabs/logspout
+  name: logspout
+  restart: "always"
+  links:
+    - "logstash:logstash"
+  volumes:
+    - "/var/run/docker.sock:/tmp/docker.sock"
+  command: "syslog://logstash:9514"
 portal:
     image: cncflora/portal
     name: portal
     restart: "always"
     environment:
-      BASE: "/portal"
+        BASE: "/portal"
     ports:
-      - 80
+        - 80
 proxy:
     image: cncflora/proxy 
     name: proxy
@@ -70,8 +79,7 @@ connect:
     name: connect
     restart: "always"
     ports:
-        - "8080"
-        - "9001"
+        - "80"
     volumes:
         - "/var/floraconnect:/var/floraconnect:rw"
     environment:
@@ -81,8 +89,7 @@ dwc_services:
     name: dwc_services
     restart: "always"
     ports:
-        - "8080"
-        - "9001"
+        - "80"
     environment:
         PROXY: "/dwc_services"
 checklist:
