@@ -19,8 +19,7 @@ portal:
     environment:
       BASE: "/portal"
     ports:
-      - 8000
-      - 9001
+      - 80
 proxy:
     image: cncflora/proxy 
     name: proxy
@@ -86,12 +85,6 @@ dwc_services:
         - "9001"
     environment:
         PROXY: "/dwc_services"
-floradata:
-    image: cncflora/floradata
-    name: floradata
-    restart: "always"
-    ports:
-        - "80"
 checklist:
     image: cncflora/checklist
     name: checklist
