@@ -130,6 +130,14 @@ migrator:
     links:
         - "couchdb:couchdb"
         - "elasticsearch:elasticsearch"
+plataforma2:
+    image: cncflora/apache
+    name: plataforma2
+    restart: "always"
+    ports:
+        - "80"
+    volumes:
+        - "/var/www2:/var/www:rw"
 arquivos:
     image: cncflora/apache
     name: arquivos
