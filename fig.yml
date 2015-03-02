@@ -90,8 +90,7 @@ checklist:
     name: checklist
     restart: "always"
     ports:
-        - "8080"
-        - "9001"
+        - "80"
     environment:
         BASE: "/checklist"
 occurrences:
