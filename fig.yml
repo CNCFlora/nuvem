@@ -13,14 +13,14 @@ logstash:
         - 9514
         - 9001
 logspout:
-  image: gliderlabs/logspout
-  name: logspout
-  restart: "always"
-  links:
-    - "logstash:logstash"
-  volumes:
-    - "/var/run/docker.sock:/tmp/docker.sock"
-  command: "syslog://logstash:9514"
+    image: gliderlabs/logspout
+    name: logspout
+    restart: "always"
+    links:
+        - "logstash:logstash"
+    volumes:
+        - "/var/run/docker.sock:/tmp/docker.sock"
+    command: "syslog://logstash:9514"
 portal:
     image: cncflora/portal
     name: portal
