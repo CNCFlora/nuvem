@@ -104,8 +104,7 @@ occurrences:
     name: occurrences
     restart: "always"
     ports:
-        - "8080"
-        - "9001"
+        - "80"
     environment:
         BASE: "/occurrences"
 profiles:
