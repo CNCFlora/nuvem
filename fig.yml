@@ -121,8 +121,7 @@ assessments:
     name: assessments
     restart: "always"
     ports:
-        - "8080"
-        - "9001"
+        - "80"
     environment:
         BASE: "/assessment"
 migrator:
