@@ -51,7 +51,7 @@ couchdb:
     name: couchdb
     restart: "always"
     ports:
-        - "5984"
+        - "5984:5984"
         - "9001"
     volumes:
         - "/var/lib/couchdb:/var/lib/couchdb:rw"
@@ -133,6 +133,12 @@ migrator:
     links:
         - "couchdb:couchdb"
         - "elasticsearch:elasticsearch"
+reports:
+    image: cncflora/reports
+    name: reports
+    restart: "always"
+    ports:
+        - "80"
 plataforma2:
     image: cncflora/apache
     name: plataforma2
@@ -149,6 +155,17 @@ arquivos:
         - "80"
     volumes:
         - "/var/www:/var/www:rw"
+arquivos-sftp:
+    image: asavartzeth/sftp
+    name: wiki-sftp
+    restart: "always"
+    ports:
+        - "2223:22"
+    environment:
+        SFTP_USER: "cncflora"
+        SFTP_PASS: "1cncflora2"
+    volumes:
+        - "/var/www:$SFTP_DATA_DIR/chroot/wiki:rw"
 wiki:
     image: cncflora/apache
     name: wiki 
