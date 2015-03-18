@@ -139,6 +139,7 @@ reports:
     restart: "always"
     ports:
         - "80"
+        - "9001"
 plataforma2:
     image: cncflora/apache
     name: plataforma2
