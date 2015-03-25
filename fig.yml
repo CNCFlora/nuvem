@@ -173,7 +173,7 @@ arquivos-sftp:
         SFTP_USER: "cncflora"
         SFTP_PASS: "1cncflora2"
     volumes:
-        - "/var/www:$SFTP_DATA_DIR/chroot/wiki:rw"
+        - "/var/www:$SFTP_DATA_DIR/chroot/www:rw"
 wiki:
     image: cncflora/apache
     name: wiki 

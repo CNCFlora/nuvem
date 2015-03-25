@@ -15,6 +15,8 @@ docker2etcd
 docker2etcd -c
 fige -t logstash -e $ETCD2
 docker2etcd -c
+fige -t logspout -e $ETCD2
+docker2etcd -c
 fige -t portal -e $ETCD2
 docker2etcd -c 
 fige -t proxy -e $ETCD2
