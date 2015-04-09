@@ -48,6 +48,16 @@ elasticsearch:
     restart: "always"
     ports:
         - "9200"
+    volumes:
+      - "/var/elasticsearch/data:/usr/share/elasticsearch/data:rw"
+kibana:
+    image: cncflora/kibana
+    name: kibana
+    restart: "always"
+    ports:
+        - "80"
+    links:
+        - "elasticsearch:elasticsearch"
 couchdb:
     image: cncflora/couchdb
     name: couchdb
