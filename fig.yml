@@ -5,7 +5,7 @@ etcd:
     ports:
        - "4001:4001"
 logstash:
-    image: diogok/logstash
+    image: cncflora/logstash
     name: logstash
     restart: "always"
     ports:
