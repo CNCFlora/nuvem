@@ -176,7 +176,7 @@ arquivos:
         - "/var/www:/var/www:rw"
 arquivos-sftp:
     image: asavartzeth/sftp
-    name: wiki-sftp
+    name: arquivos-sftp
     restart: "always"
     ports:
         - "2223:22"
