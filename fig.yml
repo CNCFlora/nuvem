@@ -23,6 +23,16 @@ logspout:
     volumes:
         - "/var/run/docker.sock:/tmp/docker.sock"
     command: "syslog://logstash:9514"
+advisor:
+    image: google/cadvisor
+    name: advisor
+    ports:
+        - 8080
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:rw"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker:/var/lib/docker:ro"
 portal:
     image: cncflora/portal
     name: portal
