@@ -4,6 +4,42 @@ etcd:
     restart: "always"
     ports:
        - "4001:4001"
+consul:
+    image:  progrium/consul
+    name: consul
+    restart: "always"
+    command: "-server -bootstrap -ui-dir /ui"
+    volumes:
+        - "/var/run/docker.sock:/var/run/docker.sock"
+    ports:
+        -  "8500:8500"
+        -  "8600:8600"
+registrator:
+    image: gliderlabs/registrator:master
+    name: registrator
+    restart: "always"
+    command: "-internal consul://consul:8500"
+    ports:
+        - 8080
+    links: 
+        - "consul:consul"
+    volumes:
+        - "/var/run/docker.sock:/tmp/docker.sock"
+alerts:
+    image: jess/consul-alerts
+    name: alerts
+    restart: "always"
+    command: "--watch-events --watch-checks --consul-addr=consul:8500 --consul-dc=dc1"
+    links:
+        - "consul:consul"
+resource-monitor:
+    image: cncflora/mom
+    name: resource-mom
+    restart: "always"
+    ports:
+        - 80
+    environment:
+        SERVICE_80_CHECK_HTTP: /all.php
 logstash:
     image: cncflora/logstash
     name: logstash
@@ -26,6 +62,7 @@ logspout:
 advisor:
     image: google/cadvisor
     name: advisor
+    restart: "always"
     ports:
         - 8080
     volumes:
@@ -33,16 +70,8 @@ advisor:
       - "/var/run:/var/run:rw"
       - "/sys:/sys:ro"
       - "/var/lib/docker:/var/lib/docker:ro"
-portal:
-    image: cncflora/portal
-    name: portal
-    restart: "always"
-    environment:
-        BASE: "/portal"
-    ports:
-        - 80
 proxy:
-    image: cncflora/proxy 
+    image: diogok/proxy-docker
     name: proxy
     restart: "always"
     environment:
@@ -89,6 +118,14 @@ services:
         DB: "public"
         PROXY: "/services"
         BASE: "/services"
+portal:
+    image: cncflora/portal
+    name: portal
+    restart: "always"
+    environment:
+        BASE: "/portal"
+    ports:
+        - 80
 entrypoint: 
     image: cncflora/entrypoint
     name: entrypoint
@@ -165,6 +202,8 @@ floradata:
     image: cncflora/floradata
     name: floradata
     restart: "always"
+    environment:
+        SERVICE_80_CHECK_HTTP: /api/v1/families
     ports:
         - 80
         - 9001
