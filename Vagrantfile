@@ -16,6 +16,6 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision :shell, :inline => "apt-get install ruby -y"
   config.vm.provision :shell, :inline => "gem sources -r http://rubygems.org/ && gem sources -a https://rubygems.org/"
-  config.vm.provision :shell, :inline => "gem install small-ops"
+  config.vm.provision :shell, :inline => "gem install fige"
 end
 
