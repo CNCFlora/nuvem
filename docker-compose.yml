@@ -98,7 +98,7 @@ couchdb:
         - "5984:5984"
         - "9001"
     volumes:
-        - "/var/data/lib/couchdb:/var/lib/couchdb:rw"
+        - "/var/data/couchdb:/var/lib/couchdb:rw"
     links:
         - "elasticsearch:elasticsearch"
 services:
