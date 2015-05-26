@@ -1,9 +1,3 @@
-etcd:
-    image: cncflora/etcd
-    name: etcd
-    restart: "always"
-    ports:
-       - "4001:4001"
 consul:
     image:  progrium/consul
     name: consul
@@ -78,9 +72,8 @@ proxy:
         ROOT_APP: "portal"
     ports:
         - "80:80"
-        - "9001"
     links:
-        - "etcd:etcd"
+        - "consul:consul"
 elasticsearch:
     image: cncflora/elasticsearch
     name: elasticsearch
@@ -88,7 +81,7 @@ elasticsearch:
     ports:
         - "9200"
     volumes:
-      - "/var/elasticsearch/data:/usr/share/elasticsearch/data:rw"
+        - "/var/data/elasticsearch/data:/usr/share/elasticsearch/data:rw"
 kibana:
     image: cncflora/kibana
     name: kibana
@@ -105,7 +98,7 @@ couchdb:
         - "5984:5984"
         - "9001"
     volumes:
-        - "/var/lib/couchdb:/var/lib/couchdb:rw"
+        - "/var/data/lib/couchdb:/var/lib/couchdb:rw"
     links:
         - "elasticsearch:elasticsearch"
 services:
@@ -139,7 +132,7 @@ connect:
     ports:
         - "80"
     volumes:
-        - "/var/floraconnect:/var/floraconnect:rw"
+        - "/var/data/connect:/var/floraconnect:rw"
     environment:
         PROXY: "/connect"
 dwc_services:
@@ -214,7 +207,7 @@ plataforma2:
     ports:
         - "80"
     volumes:
-        - "/var/www2:/var/www:rw"
+      - "/var/data/www-old:/var/www:rw"
 arquivos:
     image: cncflora/apache
     name: arquivos
@@ -222,7 +215,7 @@ arquivos:
     ports:
         - "80"
     volumes:
-        - "/var/www:/var/www:rw"
+        - "/var/data/www:/var/www:rw"
 arquivos-sftp:
     image: asavartzeth/sftp
     name: arquivos-sftp
@@ -233,7 +226,7 @@ arquivos-sftp:
         SFTP_USER: "cncflora"
         SFTP_PASS: "1cncflora2"
     volumes:
-        - "/var/www:$SFTP_DATA_DIR/chroot/www:rw"
+        - "/var/data/www:$SFTP_DATA_DIR/chroot/www:rw"
 wiki:
     image: cncflora/apache
     name: wiki 
@@ -241,7 +234,7 @@ wiki:
     ports:
         - "80"
     volumes:
-        - "/var/wiki:/var/www:rw"
+        - "/var/data/wiki:/var/www:rw"
 wiki-sftp:
     image: asavartzeth/sftp
     name: wiki-sftp
@@ -252,4 +245,4 @@ wiki-sftp:
         SFTP_USER: "cncflora"
         SFTP_PASS: "1cncflora2"
     volumes:
-        - "/var/wiki:$SFTP_DATA_DIR/chroot/wiki:rw"
+        - "/var/data/wiki:$SFTP_DATA_DIR/chroot/wiki:rw"
