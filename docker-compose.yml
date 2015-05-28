@@ -26,9 +26,9 @@ alerts:
     command: "--watch-events --watch-checks --consul-addr=consul:8500 --consul-dc=dc1"
     links:
         - "consul:consul"
-resource-monitor:
+resource_monitor:
     image: cncflora/mom
-    name: resource-mom
+    name: resource_monitor
     restart: "always"
     ports:
         - 80
