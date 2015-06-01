@@ -53,17 +53,6 @@ logspout:
     volumes:
         - "/var/run/docker.sock:/tmp/docker.sock"
     command: "syslog://logstash:9514"
-advisor:
-    image: google/cadvisor
-    name: advisor
-    restart: "always"
-    ports:
-        - 8080
-    volumes:
-      - "/:/rootfs:ro"
-      - "/var/run:/var/run:rw"
-      - "/sys:/sys:ro"
-      - "/var/lib/docker:/var/lib/docker:ro"
 proxy:
     image: diogok/proxy-docker
     name: proxy
