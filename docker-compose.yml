@@ -79,6 +79,12 @@ kibana:
         - "80"
     links:
         - "elasticsearch:elasticsearch"
+download_csv:
+    image: cncflora/download_csv
+    name: download_csv
+    restart: "always"
+    ports:
+        - "80"
 couchdb:
     image: cncflora/couchdb
     name: couchdb
