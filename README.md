@@ -16,26 +16,25 @@ This will build the virtual machine. When ready, acess it and run all apps.
 
     $ vagrant ssh
     $ cd /vagrant
-    $ ./run.sh
+    $ fige
 
 This will take a while : )
 
-Wait while the VM is built them access [http://192.168.50.200/entrypoint](http://192.168.50.200/entrypoiny).
+Wait while the VM is built them access [http://192.168.50.200/entrypoint](http://192.168.50.200/entrypoint).
 
-### Manual
+### Manual/Docker
 
-Little more complex, but real and faster way.
+Bit more complex, but real and faster way.
 
-You will need git, [docker](http://docker.io), [ruby](http://ruby-lang.org) and [small-ops](http://github.com/diogok/small-ops) installed, them at this directory run:
-
+You will need git, [docker](http://docker.io), [ruby](http://ruby-lang.org) and [fige](http://github.com/diogok/fige) installed, them at this directory run:
     
     $ git clone git@github.com:CNCFlora/nuvem
     $ cd nuvem
-    $ ./run.sh // maybe HOST=your_ip ./run.sh
+    $ fige //HOST=your_ip fige
 
-This will take time at the first run, them it gets faster.
+This will take time at the first run, as it downloads all the images, them it gets faster.
 
-Them access it at http://yourip. 
+Them access it at http://localhost. 
 
 ## Deploy
 
@@ -45,10 +44,10 @@ Them access it at http://yourip.
 
     $ sudo apt-get install git
 
-- Get ruby and small-ops:
+- Get ruby and fige:
 
     $ sudo apt-get install ruby
-    $ sudo gem install small-ops
+    $ sudo gem install fige
 
 - Clone this repository:
 
@@ -65,7 +64,7 @@ Them access it at http://yourip.
 
 - Run everything:
 
-   $ ./run.sh
+   $ fige
 
 - Access your ip/domain and use the apps
 
