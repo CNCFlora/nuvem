@@ -1,58 +1,3 @@
-consul:
-    image:  progrium/consul
-    name: consul
-    restart: "always"
-    command: "-server -bootstrap -ui-dir /ui"
-    volumes:
-        - "/var/run/docker.sock:/var/run/docker.sock"
-    ports:
-        -  "8500:8500"
-        -  "8600:8600"
-registrator:
-    image: gliderlabs/registrator:master
-    name: registrator
-    restart: "always"
-    command: "-internal consul://consul:8500"
-    ports:
-        - 8080
-    links: 
-        - "consul:consul"
-    volumes:
-        - "/var/run/docker.sock:/tmp/docker.sock"
-alerts:
-    image: jess/consul-alerts
-    name: alerts
-    restart: "always"
-    command: "--watch-events --watch-checks --consul-addr=consul:8500 --consul-dc=dc1"
-    links:
-        - "consul:consul"
-resource_monitor:
-    image: cncflora/mom
-    name: resource_monitor
-    restart: "always"
-    ports:
-        - 80
-    environment:
-        SERVICE_80_CHECK_HTTP: /all.php
-logstash:
-    image: cncflora/logstash
-    name: logstash
-    restart: "always"
-    ports:
-        - 80
-        - 9514
-        - 9001
-logspout:
-    image: gliderlabs/logspout
-    name: logspout
-    restart: "always"
-    ports:
-        - 8000
-    links:
-        - "logstash:logstash"
-    volumes:
-        - "/var/run/docker.sock:/tmp/docker.sock"
-    command: "syslog://logstash:9514"
 proxy:
     image: diogok/proxy-docker
     name: proxy
@@ -61,8 +6,6 @@ proxy:
         ROOT_APP: "portal"
     ports:
         - "80:80"
-    links:
-        - "consul:consul"
 elasticsearch:
     image: cncflora/elasticsearch
     name: elasticsearch
