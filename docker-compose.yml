@@ -1,11 +1,13 @@
 proxy:
-    image: diogok/proxy-docker
+    image: cncflora/proxy
     name: proxy
     restart: "always"
     environment:
         ROOT_APP: "portal"
     ports:
         - "80:80"
+    volumes:
+        - "/var/run/docker.sock:/var/run/docker.sock:r"
 elasticsearch:
     image: cncflora/elasticsearch
     name: elasticsearch
