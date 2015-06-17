@@ -186,3 +186,6 @@ wiki-sftp:
         SFTP_PASS: "1cncflora2"
     volumes:
         - "/var/data/wiki:$SFTP_DATA_DIR/chroot/wiki:rw"
+monitis:
+    image: cncflora/monitis
+    name: monitis
