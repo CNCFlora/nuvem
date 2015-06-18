@@ -189,3 +189,7 @@ wiki-sftp:
 monitis:
     image: cncflora/monitis
     name: monitis
+    pid: host
+    volumes:
+        - "/run:/run:ro"
+        - "/sys:/sys:ro"
