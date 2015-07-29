@@ -91,6 +91,12 @@ checklist:
         - "80"
     environment:
         BASE: "/checklist"
+    links:
+        - elasticsearch:elasticsearch
+        - couchdb:couchdb
+        - connect:connect
+        - floradata:floradata
+        - profiles:profiles
 occurrences:
     image: cncflora/occurrences
     name: occurrences
@@ -99,6 +105,11 @@ occurrences:
         - "80"
     environment:
         BASE: "/occurrences"
+    links:
+        - elasticsearch:elasticsearch
+        - couchdb:couchdb
+        - connect:connect
+        - dwc_services:dwc_services
 profiles:
     image: cncflora/profiles
     name: profiles
@@ -119,6 +130,10 @@ assessments:
         - "80"
     environment:
         BASE: "/assessment"
+    links:
+        - elasticsearch:elasticsearch
+        - couchdb:couchdb
+        - connect:connect
 migrator:
     image: cncflora/migrator
     name: migrator
