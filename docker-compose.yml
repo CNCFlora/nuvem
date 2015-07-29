@@ -124,6 +124,7 @@ migrator:
     links:
         - "couchdb:couchdb"
         - "elasticsearch:elasticsearch"
+        - "connect:connect"
 reports:
     image: cncflora/reports
     name: reports
