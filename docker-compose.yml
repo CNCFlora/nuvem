@@ -107,6 +107,10 @@ profiles:
         - "80"
     environment:
         BASE: "/profiles"
+    links:
+        - elasticsearch:elasticsearch
+        - couchdb:couchdb
+        - connect:connect
 assessments:
     image: cncflora/assessments
     name: assessments
