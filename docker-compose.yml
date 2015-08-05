@@ -75,6 +75,15 @@ connect:
         - "/var/data/connect:/var/floraconnect:rw"
     environment:
         PROXY: "/connect"
+floradata:
+    image: cncflora/floradata
+    name: floradata
+    restart: "always"
+    environment:
+        SERVICE_80_CHECK_HTTP: /api/v1/families
+    ports:
+        - 80
+        - 9001
 dwc_services:
     image: cncflora/dwc-services
     name: dwc_services
@@ -96,7 +105,6 @@ checklist:
         - couchdb:couchdb
         - connect:connect
         - floradata:floradata
-        - profiles:profiles
 occurrences:
     image: cncflora/occurrences
     name: occurrences
@@ -151,15 +159,6 @@ reports:
     ports:
         - "80"
         - "9001"
-floradata:
-    image: cncflora/floradata
-    name: floradata
-    restart: "always"
-    environment:
-        SERVICE_80_CHECK_HTTP: /api/v1/families
-    ports:
-        - 80
-        - 9001
 plataforma2:
     image: cncflora/apache
     name: plataforma2
