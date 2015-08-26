@@ -56,6 +56,8 @@ aka:
         - 8080
     volumes:
         - "/var/data/aka:/var/lib/aka:rw"
+    environment:
+        PROXY: "/aka"
 services:
     image: cncflora/services
     name: services
