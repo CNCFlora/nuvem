@@ -41,15 +41,23 @@ couchdb:
         - "/var/data/couchdb:/var/lib/couchdb:rw"
     links:
         - "elasticsearch:elasticsearch"
+floradata:
+    image: cncflora/floradata
+    name: floradata
+    restart: "always"
+    ports:
+        - 80
+        - 9001
 services:
     image: cncflora/services
     name: services
     restart: "always"
+    links:
+        - "floradata:floradata"
     ports:
         - "80"
     environment:
         DB: "public"
-        PROXY: "/services"
         BASE: "/services"
 portal:
     image: cncflora/portal
@@ -75,15 +83,6 @@ connect:
         - "/var/data/connect:/var/floraconnect:rw"
     environment:
         PROXY: "/connect"
-floradata:
-    image: cncflora/floradata
-    name: floradata
-    restart: "always"
-    environment:
-        SERVICE_80_CHECK_HTTP: /api/v1/families
-    ports:
-        - 80
-        - 9001
 dwc_services:
     image: cncflora/dwc-services
     name: dwc_services
