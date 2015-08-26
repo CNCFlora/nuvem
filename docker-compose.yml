@@ -54,6 +54,8 @@ services:
     restart: "always"
     links:
         - "floradata:floradata"
+        - "couchdb:couchdb"
+        - "floradata:floradata"
     ports:
         - "80"
     environment:
