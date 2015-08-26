@@ -48,6 +48,14 @@ floradata:
     ports:
         - 80
         - 9001
+aka:
+    image: cncflora/aka
+    name: aka
+    restart: "always"
+    ports:
+        - 8080
+    volumes:
+        - "/var/data/aka:/var/lib/aka:rw"
 services:
     image: cncflora/services
     name: services
