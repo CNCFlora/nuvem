@@ -64,6 +64,7 @@ services:
         - "floradata:floradata"
         - "couchdb:couchdb"
         - "elasticsearch:elasticsearch"
+        - "aka:aka"
     ports:
         - "80"
     environment:
