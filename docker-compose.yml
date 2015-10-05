@@ -171,6 +171,8 @@ reports:
     ports:
         - "80"
         - "9001"
+    volumes:
+        - "/root/.credentials:/var/www/.credentials"
 plataforma2:
     image: cncflora/apache
     name: plataforma2
