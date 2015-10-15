@@ -164,6 +164,16 @@ migrator:
         - "couchdb:couchdb"
         - "elasticsearch:elasticsearch"
         - "connect:connect"
+sig:
+    image: cncflora/sig
+    name: sig
+    restart: "always"
+    ports:
+        - "80"
+    links:
+        - "couchdb:couchdb"
+        - "elasticsearch:elasticsearch"
+        - "connect:connect"
 reports:
     image: cncflora/reports
     name: reports
