@@ -1,6 +1,6 @@
 proxy:
     image: cncflora/proxy
-    name: proxy
+    container_name: proxy
     restart: "always"
     environment:
         ROOT_APP: "portal"
@@ -10,7 +10,7 @@ proxy:
         - "/var/run/docker.sock:/var/run/docker.sock:ro"
 elasticsearch:
     image: cncflora/elasticsearch
-    name: elasticsearch
+    container_name: elasticsearch
     restart: "always"
     ports:
         - "9200:9200"
@@ -18,7 +18,7 @@ elasticsearch:
         - "/var/data/elasticsearch/data:/usr/share/elasticsearch/data:rw"
 kibana:
     image: cncflora/kibana
-    name: kibana
+    container_name: kibana
     restart: "always"
     ports:
         - "80"
@@ -26,13 +26,13 @@ kibana:
         - "elasticsearch:elasticsearch"
 download_csv:
     image: cncflora/download_csv
-    name: download_csv
+    container_name: download_csv
     restart: "always"
     ports:
         - "80"
 couchdb:
     image: cncflora/couchdb
-    name: couchdb
+    container_name: couchdb
     restart: "always"
     ports:
         - "5984:5984"
@@ -43,14 +43,14 @@ couchdb:
         - "elasticsearch:elasticsearch"
 floradata:
     image: cncflora/floradata
-    name: floradata
+    container_name: floradata
     restart: "always"
     ports:
         - 80
         - 9001
 aka:
     image: cncflora/aka
-    name: aka
+    container_name: aka
     restart: "always"
     ports:
         - 8080
@@ -60,7 +60,7 @@ aka:
         PROXY: "/aka"
 services:
     image: cncflora/services
-    name: services
+    container_name: services
     restart: "always"
     links:
         - "floradata:floradata"
@@ -74,7 +74,7 @@ services:
         BASE: "/services"
 portal:
     image: cncflora/portal
-    name: portal
+    container_name: portal
     restart: "always"
     environment:
         BASE: "/portal"
@@ -82,13 +82,13 @@ portal:
         - 80
 entrypoint: 
     image: cncflora/entrypoint
-    name: entrypoint
+    container_name: entrypoint
     restart: "always"
     ports:
         - "80"
 connect:
     image: cncflora/connect
-    name: connect
+    container_name: connect
     restart: "always"
     ports:
         - "80"
@@ -98,7 +98,7 @@ connect:
         PROXY: "/connect"
 dwc_services:
     image: cncflora/dwc-services
-    name: dwc_services
+    container_name: dwc_services
     restart: "always"
     ports:
         - "80"
@@ -106,12 +106,13 @@ dwc_services:
         PROXY: "/dwc_services"
 checklist:
     image: cncflora/checklist
-    name: checklist
+    container_name: checklist
     restart: "always"
     ports:
         - "80"
     environment:
         BASE: "/checklist"
+        HOST: "${HOST}"
     links:
         - elasticsearch:elasticsearch
         - couchdb:couchdb
@@ -119,12 +120,13 @@ checklist:
         - floradata:floradata
 occurrences:
     image: cncflora/occurrences
-    name: occurrences
+    container_name: occurrences
     restart: "always"
     ports:
         - "80"
     environment:
         BASE: "/occurrences"
+        HOST: "${HOST}"
     links:
         - elasticsearch:elasticsearch
         - couchdb:couchdb
@@ -132,31 +134,33 @@ occurrences:
         - dwc_services:dwc_services
 profiles:
     image: cncflora/profiles
-    name: profiles
+    container_name: profiles
     restart: "always"
     ports:
         - "80"
     environment:
         BASE: "/profiles"
+        HOST: "${HOST}"
     links:
         - elasticsearch:elasticsearch
         - couchdb:couchdb
         - connect:connect
 assessments:
     image: cncflora/assessments
-    name: assessments
+    container_name: assessments
     restart: "always"
     ports:
         - "80"
     environment:
         BASE: "/assessment"
+        HOST: "${HOST}"
     links:
         - elasticsearch:elasticsearch
         - couchdb:couchdb
         - connect:connect
 migrator:
     image: cncflora/migrator
-    name: migrator
+    container_name: migrator
     restart: "always"
     ports:
         - "80"
@@ -166,7 +170,7 @@ migrator:
         - "connect:connect"
 sig:
     image: cncflora/sig
-    name: sig
+    container_name: sig
     restart: "always"
     ports:
         - "80"
@@ -176,7 +180,7 @@ sig:
         - "connect:connect"
 reports:
     image: cncflora/reports
-    name: reports
+    container_name: reports
     restart: "always"
     ports:
         - "80"
@@ -185,7 +189,7 @@ reports:
         - "/root/.credentials:/var/www/.credentials"
 plataforma2:
     image: cncflora/apache
-    name: plataforma2
+    container_name: plataforma2
     restart: "always"
     ports:
         - "80"
@@ -193,7 +197,7 @@ plataforma2:
       - "/var/data/www-old:/var/www:rw"
 arquivos:
     image: cncflora/apache
-    name: arquivos
+    container_name: arquivos
     restart: "always"
     ports:
         - "80"
@@ -201,7 +205,7 @@ arquivos:
         - "/var/data/www:/var/www:rw"
 arquivos-sftp:
     image: asavartzeth/sftp
-    name: arquivos-sftp
+    container_name: arquivos-sftp
     restart: "always"
     ports:
         - "2223:22"
@@ -212,7 +216,7 @@ arquivos-sftp:
         - "/var/data/www:$SFTP_DATA_DIR/chroot/www:rw"
 wiki:
     image: cncflora/apache
-    name: wiki 
+    container_name: wiki 
     restart: "always"
     ports:
         - "80"
@@ -220,7 +224,7 @@ wiki:
         - "/var/data/wiki:/var/www:rw"
 wiki-sftp:
     image: asavartzeth/sftp
-    name: wiki-sftp
+    container_name: wiki-sftp
     restart: "always"
     ports:
         - "2222:22"
@@ -231,7 +235,7 @@ wiki-sftp:
         - "/var/data/wiki:$SFTP_DATA_DIR/chroot/wiki:rw"
 monitis:
     image: cncflora/monitis
-    name: monitis
+    container_name: monitis
     pid: host
     volumes:
         - "/run:/run:ro"

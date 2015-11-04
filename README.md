@@ -4,50 +4,54 @@ The whole "cloud" of cncflora apps, unified.
 
 ## Try it
 
-### VirtualBox/Vagrant
+### VirtualBox and Vagrant
 
-The easiest way.
+This is the easiest way to run everything in a local machine.
 
 You will need [VirtualBox](http://virtualbox.org) and [Vagrant](http://www.vagrantup.com/), them at this directory run:
 
     $ vagrant up
 
+The first time of a vagrant up may take some time.
+
 This will build the virtual machine. When ready, acess it and run all apps.
 
     $ vagrant ssh
     $ cd /vagrant
-    $ fige
+    $ docker-compose up -d
 
-This will take a while : )
+Again, the first run will take a while.
 
 Wait while the VM is built them access [http://192.168.50.200/entrypoint](http://192.168.50.200/entrypoint).
 
-### Manual/Docker
+Access the users app to create the first user and the checklist app to create the first db.
 
-Bit more complex, but real and faster way.
+### Manual, using Docker
 
-You will need git, [docker](http://docker.io), [ruby](http://ruby-lang.org) and [fige](http://github.com/diogok/fige) installed, them at this directory run:
+Bit more complex, but the real production way.
+
+You will need git, [docker](http://docker.io) engine 1.9+ and [docker-compose](https://docs.docker.com/compose/install/) 1.5+.
+
+Them run:
     
     $ git clone git@github.com:CNCFlora/nuvem
     $ cd nuvem
-    $ fige //HOST=your_ip fige
+    $ docker-compose up
 
 This will take time at the first run, as it downloads all the images, them it gets faster.
 
-Them access it at http://localhost. 
+Them access it at [http://localhost](http://localhost). 
 
+Access the users app to create the first user and the checklist app to create the first db.
+ 
 ## Deploy
 
 - Get a recent kernel (>=3.8)
-- Get [docker](https://docs.docker.com/installation/).
+- Get [docker](https://docs.docker.com/installation/) 1.9+.
+- Get [docker-compose](https://docs.docker.com/compose/install/) 1.5+.
 - Get git:
 
     $ sudo apt-get install git
-
-- Get ruby and fige:
-
-    $ sudo apt-get install ruby
-    $ sudo gem install fige
 
 - Clone this repository:
 
@@ -64,9 +68,14 @@ Them access it at http://localhost.
 
 - Run everything:
 
-   $ fige
+   $ docker-compose up -d
 
 - Access your ip/domain and use the apps
+- Access the users app to create the first user and the checklist app to create the first db.
+
+## Data folder and backup
+
+All data is stored under the host /var/data.
 
 ## License
 
