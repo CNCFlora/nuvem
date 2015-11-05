@@ -55,7 +55,7 @@ aka:
     ports:
         - 8080
     volumes:
-        - "/var/data/aka:/var/lib/aka:rw"
+        - "/var/data/aka:/var/data/aka:rw"
     environment:
         PROXY: "/aka"
 services:
