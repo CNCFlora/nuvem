@@ -77,6 +77,47 @@ Access the users app to create the first user and the checklist app to create th
 
 All data is stored under the host /var/data.
 
+## Operations
+
+Common day-to-day operations.
+
+Update all services:
+
+    $ ./pull.sh
+    $ docker-compose up -d
+
+Update a service:
+
+    $ docker pull cncflora/service_name
+    $ docker-compose up -d service_name
+
+Stop a single service:
+
+    $ docker-compose stop service_name
+
+Stop all services:
+
+    $ docker-compose stop
+
+Restart a single service:
+
+    $ docker-compose stop service_name
+    $ docker-compose up -d service_name
+
+Restart all:
+
+    $ docker-compose stop
+    $ docker-compose up -d
+
+View logs:
+
+    $ docker-compose logs
+    $ docker-compose logs service_name
+
+Clean-up docker leftovers:
+
+    $ ./clear_docker.sh
+
 ## License
 
 Apache License 2.0
