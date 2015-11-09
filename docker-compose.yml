@@ -30,6 +30,8 @@ download_csv:
     restart: "always"
     ports:
         - "80"
+    environment:
+        HOST: "${HOST}"
 couchdb:
     image: cncflora/couchdb
     container_name: couchdb
@@ -168,6 +170,8 @@ migrator:
         - "couchdb:couchdb"
         - "elasticsearch:elasticsearch"
         - "connect:connect"
+    environment:
+        HOST: "${HOST}"
 sig:
     image: cncflora/sig
     container_name: sig
@@ -178,6 +182,8 @@ sig:
         - "couchdb:couchdb"
         - "elasticsearch:elasticsearch"
         - "connect:connect"
+    environment:
+        HOST: "${HOST}"
 reports:
     image: cncflora/reports
     container_name: reports
