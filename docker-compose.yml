@@ -147,6 +147,7 @@ profiles:
         - elasticsearch:elasticsearch
         - couchdb:couchdb
         - connect:connect
+        - floradata:floradata 
 assessments:
     image: cncflora/assessments
     container_name: assessments
@@ -160,6 +161,7 @@ assessments:
         - elasticsearch:elasticsearch
         - couchdb:couchdb
         - connect:connect
+        - floradata:floradata 
 migrator:
     image: cncflora/migrator
     container_name: migrator
