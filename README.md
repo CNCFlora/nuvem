@@ -18,6 +18,7 @@ This will build the virtual machine. When ready, acess it and run all apps.
 
     $ vagrant ssh
     $ cd /vagrant
+    $ docker network create --driver bridge nuvem
     $ docker-compose up -d
 
 Again, the first run will take a while.
@@ -36,6 +37,7 @@ Them run:
     
     $ git clone git@github.com:CNCFlora/nuvem
     $ cd nuvem
+    $ docker network create --driver bridge nuvem
     $ docker-compose up
 
 This will take time at the first run, as it downloads all the images, them it gets faster.
@@ -65,6 +67,10 @@ Access the users app to create the first user and the checklist app to create th
 - Setup your env:
 
     $ export HOST=your_public_ip_or_domain
+
+- Setup internal network:
+    
+    $ docker network create --driver bridge nuvem
 
 - Run everything:
 
