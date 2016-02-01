@@ -2,6 +2,7 @@ proxy:
     image: cncflora/proxy
     container_name: proxy
     restart: "always"
+    net: 'nuvem'
     environment:
         ROOT_APP: "portal"
     ports:
@@ -11,6 +12,7 @@ proxy:
 elasticsearch:
     image: cncflora/elasticsearch
     container_name: elasticsearch
+    net: 'nuvem'
     restart: "always"
     ports:
         - "9200:9200"
@@ -19,14 +21,14 @@ elasticsearch:
 kibana:
     image: cncflora/kibana
     container_name: kibana
+    net: 'nuvem'
     restart: "always"
     ports:
         - "80"
-    links:
-        - "elasticsearch:elasticsearch"
 download_csv:
     image: cncflora/download_csv
     container_name: download_csv
+    net: 'nuvem'
     restart: "always"
     ports:
         - "80"
@@ -35,16 +37,16 @@ download_csv:
 couchdb:
     image: cncflora/couchdb
     container_name: couchdb
+    net: 'nuvem'
     restart: "always"
     ports:
         - "5984:5984"
     volumes:
         - "/var/data/couchdb:/var/lib/couchdb:rw"
-    links:
-        - "elasticsearch:elasticsearch"
 floradata:
     image: cncflora/floradata
     container_name: floradata
+    net: 'nuvem'
     restart: "always"
     ports:
         - 80
@@ -52,6 +54,7 @@ floradata:
 aka:
     image: cncflora/aka
     container_name: aka
+    net: 'nuvem'
     restart: "always"
     ports:
         - 8080
@@ -62,12 +65,8 @@ aka:
 services:
     image: cncflora/services
     container_name: services
+    net: 'nuvem'
     restart: "always"
-    links:
-        - "floradata:floradata"
-        - "couchdb:couchdb"
-        - "elasticsearch:elasticsearch"
-        - "aka:aka"
     ports:
         - "80"
     environment:
@@ -76,6 +75,7 @@ services:
 portal:
     image: cncflora/portal
     container_name: portal
+    net: 'nuvem'
     restart: "always"
     environment:
         BASE: "/portal"
@@ -84,12 +84,14 @@ portal:
 entrypoint: 
     image: cncflora/entrypoint
     container_name: entrypoint
+    net: 'nuvem'
     restart: "always"
     ports:
         - "80"
 connect:
     image: cncflora/connect
     container_name: connect
+    net: 'nuvem'
     restart: "always"
     ports:
         - "80"
@@ -100,6 +102,7 @@ connect:
 dwc_services:
     image: cncflora/dwc-services
     container_name: dwc_services
+    net: 'nuvem'
     restart: "always"
     ports:
         - "80"
@@ -108,86 +111,65 @@ dwc_services:
 checklist:
     image: cncflora/checklist
     container_name: checklist
+    net: 'nuvem'
     restart: "always"
     ports:
         - "80"
     environment:
         BASE: "/checklist"
         HOST: "${HOST}"
-    links:
-        - elasticsearch:elasticsearch
-        - couchdb:couchdb
-        - connect:connect
-        - floradata:floradata
 occurrences:
     image: cncflora/occurrences
     container_name: occurrences
+    net: 'nuvem'
     restart: "always"
     ports:
         - "80"
     environment:
         BASE: "/occurrences"
         HOST: "${HOST}"
-    links:
-        - elasticsearch:elasticsearch
-        - couchdb:couchdb
-        - connect:connect
-        - dwc_services:dwc_services
 profiles:
     image: cncflora/profiles
     container_name: profiles
+    net: 'nuvem'
     restart: "always"
     ports:
         - "80"
     environment:
         BASE: "/profiles"
         HOST: "${HOST}"
-    links:
-        - elasticsearch:elasticsearch
-        - couchdb:couchdb
-        - connect:connect
-        - floradata:floradata 
 assessments:
     image: cncflora/assessments
     container_name: assessments
+    net: 'nuvem'
     restart: "always"
     ports:
         - "80"
     environment:
         BASE: "/assessment"
         HOST: "${HOST}"
-    links:
-        - elasticsearch:elasticsearch
-        - couchdb:couchdb
-        - connect:connect
-        - floradata:floradata 
 migrator:
     image: cncflora/migrator
     container_name: migrator
+    net: 'nuvem'
     restart: "always"
     ports:
         - "80"
-    links:
-        - "couchdb:couchdb"
-        - "elasticsearch:elasticsearch"
-        - "connect:connect"
     environment:
         HOST: "${HOST}"
 sig:
     image: cncflora/sig
     container_name: sig
+    net: 'nuvem'
     restart: "always"
     ports:
         - "80"
-    links:
-        - "couchdb:couchdb"
-        - "elasticsearch:elasticsearch"
-        - "connect:connect"
     environment:
         HOST: "${HOST}"
 reports:
     image: cncflora/reports
     container_name: reports
+    net: 'nuvem'
     restart: "always"
     ports:
         - "80"
@@ -197,6 +179,7 @@ reports:
 plataforma2:
     image: cncflora/apache
     container_name: plataforma2
+    net: 'nuvem'
     restart: "always"
     ports:
         - "80"
@@ -205,6 +188,7 @@ plataforma2:
 arquivos:
     image: cncflora/apache
     container_name: arquivos
+    net: 'nuvem'
     restart: "always"
     ports:
         - "80"
@@ -213,6 +197,7 @@ arquivos:
 arquivos-sftp:
     image: asavartzeth/sftp
     container_name: arquivos-sftp
+    net: 'nuvem'
     restart: "always"
     ports:
         - "2223:22"
@@ -224,6 +209,7 @@ arquivos-sftp:
 wiki:
     image: cncflora/apache
     container_name: wiki 
+    net: 'nuvem'
     restart: "always"
     ports:
         - "80"
@@ -232,6 +218,7 @@ wiki:
 wiki-sftp:
     image: asavartzeth/sftp
     container_name: wiki-sftp
+    net: 'nuvem'
     restart: "always"
     ports:
         - "2222:22"
@@ -243,6 +230,8 @@ wiki-sftp:
 monitis:
     image: cncflora/monitis
     container_name: monitis
+    net: 'nuvem'
+    restart: "always"
     pid: host
     volumes:
         - "/run:/run:ro"
