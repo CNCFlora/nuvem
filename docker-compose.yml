@@ -177,7 +177,7 @@ reports:
     volumes:
         - "/root/.credentials:/var/www/.credentials"
 reports2:
-    image: cncflora/reports:v2
+    image: cncflora/reports2
     container_name: reports2
     net: 'nuvem'
     restart: "always"
