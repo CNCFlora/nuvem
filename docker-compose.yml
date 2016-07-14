@@ -1,17 +1,16 @@
 version: "2"
 services:
   proxy:
-      image: cncflora/proxy
-      container_name: proxy
+      image: diogok/caddy
       restart: "always"
+      ports:
+        - 80:80
+        - 443:443
       networks:
         - nuvem
-      environment:
-          ROOT_APP: "portal"
-      ports:
-          - "80:80"
       volumes:
-          - "/var/run/docker.sock:/var/run/docker.sock:ro"
+        - ./Caddyfile:/etc/Caddyfile
+        - /opt/caddy:/root/.caddy
   elasticsearch:
       image: cncflora/elasticsearch
       container_name: elasticsearch
@@ -30,16 +29,6 @@ services:
       restart: "always"
       ports:
           - "80"
-  download_csv:
-      image: cncflora/download_csv
-      container_name: download_csv
-      networks:
-        - nuvem
-      restart: "always"
-      ports:
-          - "80"
-      environment:
-          HOST: "${HOST}"
   couchdb:
       image: cncflora/couchdb
       container_name: couchdb
@@ -176,27 +165,6 @@ services:
           - "80"
       environment:
           HOST: "${HOST}"
-  sig:
-      image: cncflora/sig
-      container_name: sig
-      networks:
-        - nuvem
-      restart: "always"
-      ports:
-          - "80"
-      environment:
-          HOST: "${HOST}"
-  reports:
-      image: cncflora/reports
-      container_name: reports
-      networks:
-        - nuvem
-      restart: "always"
-      ports:
-          - "80"
-          - "9001"
-      volumes:
-          - "/root/.credentials:/var/www/.credentials"
   reports2:
       image: cncflora/reports2
       container_name: reports2
@@ -205,16 +173,6 @@ services:
       restart: "always"
       ports:
           - "80"
-  plataforma2:
-      image: cncflora/apache
-      container_name: plataforma2
-      networks:
-        - nuvem
-      restart: "always"
-      ports:
-          - "80"
-      volumes:
-        - "/var/data/www-old:/var/www:rw"
   arquivos:
       image: cncflora/apache
       container_name: arquivos
@@ -238,28 +196,15 @@ services:
           SFTP_PASS: "1cncflora2"
       volumes:
           - "/var/data/www:$SFTP_DATA_DIR/chroot/www:rw"
-#  wiki:
-    #      image: cncflora/apache
-#      container_name: wiki 
-#      networks:
-        #        - nuvem
-#      restart: "always"
-#      ports:
-        #          - "80"
-#      volumes:
-        #          - "/var/data/wiki:/var/www:rw"
-#  wiki-sftp:
-    #      image: asavartzeth/sftp
-#      container_name: wiki-sftp
-#      networks:
-        #        - nuvem
-#      restart: "always"
-#      ports:
-        #          - "2222:22"
-#      environment:
-        #          SFTP_USER: "cncflora"
-#          SFTP_PASS: "1cncflora2"
-#      volumes:
-        #          - "/var/data/wiki:$SFTP_DATA_DIR/chroot/wiki:rw"
+  plataforma2:
+      image: cncflora/apache
+      container_name: plataforma2
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "80"
+      volumes:
+        - "/var/data/www-old:/var/www:rw"
 networks:
   nuvem:
