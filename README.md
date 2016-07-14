@@ -18,7 +18,6 @@ This will build the virtual machine. When ready, acess it and run all apps.
 
     $ vagrant ssh
     $ cd /vagrant
-    $ docker network create --driver bridge nuvem
     $ docker-compose up -d
 
 Again, the first run will take a while.
@@ -31,14 +30,15 @@ Access the users app to create the first user and the checklist app to create th
 
 Bit more complex, but the real production way.
 
-You will need git, [docker](http://docker.io) engine 1.9+ and [docker-compose](https://docs.docker.com/compose/install/) 1.5+.
+You will need git, [docker](http://docker.io) engine 1.11+ and [docker-compose](https://docs.docker.com/compose/install/) 1.6+.
 
 Them run:
     
     $ git clone git@github.com:CNCFlora/nuvem
     $ cd nuvem
-    $ docker network create --driver bridge nuvem
     $ docker-compose up
+
+You might need to edit .env to the hostname or ip you expect the apps to run.
 
 This will take time at the first run, as it downloads all the images, them it gets faster.
 
@@ -48,9 +48,9 @@ Access the users app to create the first user and the checklist app to create th
  
 ## Deploy
 
-- Get a recent kernel (>=3.8)
-- Get [docker](https://docs.docker.com/installation/) 1.9+.
-- Get [docker-compose](https://docs.docker.com/compose/install/) 1.5+.
+- Get a recent kernel (>=3.10)
+- Get [docker](https://docs.docker.com/installation/) 1.11+.
+- Get [docker-compose](https://docs.docker.com/compose/install/) 1.6+.
 - Get git:
 
     $ sudo apt-get install git
@@ -62,15 +62,9 @@ Access the users app to create the first user and the checklist app to create th
 
 - Download the images (this will take a while):
 
-    $ ./pull.sh
+    $ ./docker-compose pull
 
-- Setup your env:
-
-    $ export HOST=your_public_ip_or_domain
-
-- Setup internal network:
-    
-    $ docker network create --driver bridge nuvem
+- Setup your .env by editing the file:
 
 - Run everything:
 
@@ -89,12 +83,12 @@ Common day-to-day operations.
 
 Update all services:
 
-    $ ./pull.sh
+    $ docker-compose pull
     $ docker-compose up -d
 
 Update a service:
 
-    $ docker pull cncflora/service_name
+    $ docker-compose pull service_name
     $ docker-compose up -d service_name
 
 Stop a single service:
