@@ -1,0 +1,138 @@
+
+cncflora.jbrj.gov.br:80
+tls off
+gzip
+
+proxy /portal portal {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /portal
+}
+
+proxy /elasticsearch elasticsearch:9200 {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /elasticsearch
+}
+
+proxy /couchdb couchdb:5984 {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /couchdb
+}
+
+proxy /kibana kibana {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /kibana
+}
+
+proxy /floradata floradata {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /floradata
+}
+
+proxy /aka aka:8080 {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /aka
+}
+
+proxy /services services {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /services
+}
+
+proxy /portal portal {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /portal
+}
+
+proxy /entrypoint entrypoint {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /entrypoint
+}
+
+proxy /connect connect {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /connect
+}
+
+proxy /checklist checklist {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /checklist
+}
+
+proxy /dwc_services dwc_services {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /dwc_services
+}
+
+proxy /occurrences occurrences {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /occurrences
+}
+
+proxy /assessments assessments {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /assessments
+}
+
+proxy /profiles profiles {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /profiles
+}
+
+proxy /reports2 reports2 {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /reports2
+}
+
+proxy /migrator migrator {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /migrator
+}
+
+proxy /arquivos arquivos {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /arquivos
+}
+
+proxy /plataforma2 plataforma2 {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /plataforma2
+}
+
