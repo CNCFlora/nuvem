@@ -1,4 +1,6 @@
 
+cncflora.jbrj.gov.br:80
+tls off
 gzip
 
 proxy /portal portal {
@@ -8,18 +10,18 @@ proxy /portal portal {
   without /portal
 }
 
-proxy /dwc_services dwcservices {
-  proxy_header Host {host}
-  proxy_header X-Real-IP {remote}
-  proxy_header X-Forwarded-Proto {scheme}
-  without /dwc-services
-}
-
 proxy /elasticsearch elasticsearch:9200 {
   proxy_header Host {host}
   proxy_header X-Real-IP {remote}
   proxy_header X-Forwarded-Proto {scheme}
   without /elasticsearch
+}
+
+proxy /couchdb couchdb:9200 {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /couchdb
 }
 
 proxy /kibana kibana {
@@ -71,7 +73,7 @@ proxy /connect connect {
   without /connect
 }
 
-proxy /checklist portal {
+proxy /checklist checklist {
   proxy_header Host {host}
   proxy_header X-Real-IP {remote}
   proxy_header X-Forwarded-Proto {scheme}
