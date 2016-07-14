@@ -1,7 +1,9 @@
 
-cncflora.jbrj.gov.br:80
+:80
 tls off
 gzip
+root /var/www/html
+ext .html
 
 proxy /portal portal {
   proxy_header Host {host}
