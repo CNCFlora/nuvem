@@ -151,12 +151,5 @@ services:
           SFTP_PASS: "1cncflora2"
       volumes:
           - "/var/data/www:$SFTP_DATA_DIR/chroot/www:rw"
-  plataforma2:
-      image: cncflora/apache
-      networks:
-        - nuvem
-      restart: "always"
-      volumes:
-        - "/var/data/www-old:/var/www:rw"
 networks:
   nuvem:
