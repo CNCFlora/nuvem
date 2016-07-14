@@ -115,6 +115,13 @@ proxy /reports2 reports2 {
   without /reports2
 }
 
+proxy /migrator migrator {
+  proxy_header Host {host}
+  proxy_header X-Real-IP {remote}
+  proxy_header X-Forwarded-Proto {scheme}
+  without /migrator
+}
+
 proxy /arquivos arquivos {
   proxy_header Host {host}
   proxy_header X-Real-IP {remote}
