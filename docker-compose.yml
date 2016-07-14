@@ -1,248 +1,265 @@
-proxy:
-    image: cncflora/proxy
-    container_name: proxy
-    restart: "always"
-    net: 'nuvem'
-    environment:
-        ROOT_APP: "portal"
-    ports:
-        - "80:80"
-    volumes:
-        - "/var/run/docker.sock:/var/run/docker.sock:ro"
-elasticsearch:
-    image: cncflora/elasticsearch
-    container_name: elasticsearch
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "9200:9200"
-    volumes:
-        - "/var/data/elasticsearch/data:/usr/share/elasticsearch/data:rw"
-kibana:
-    image: cncflora/kibana
-    container_name: kibana
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "80"
-download_csv:
-    image: cncflora/download_csv
-    container_name: download_csv
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "80"
-    environment:
-        HOST: "${HOST}"
-couchdb:
-    image: cncflora/couchdb
-    container_name: couchdb
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "5984:5984"
-    volumes:
-        - "/var/data/couchdb:/var/lib/couchdb:rw"
-floradata:
-    image: cncflora/floradata
-    container_name: floradata
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - 80
-        - 9001
-aka:
-    image: cncflora/aka
-    container_name: aka
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - 8080
-    volumes:
-        - "/var/data/aka:/var/data/aka:rw"
-    environment:
-        PROXY: "/aka"
+version: "2"
 services:
-    image: cncflora/services
-    container_name: services
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "80"
-    environment:
-        DB: "public"
-        BASE: "/services"
-portal:
-    image: cncflora/portal
-    container_name: portal
-    net: 'nuvem'
-    restart: "always"
-    environment:
-        BASE: "/portal"
-    ports:
-        - 80
-entrypoint: 
-    image: cncflora/entrypoint
-    container_name: entrypoint
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "80"
-connect:
-    image: cncflora/connect
-    container_name: connect
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "80"
-    volumes:
-        - "/var/data/connect:/var/floraconnect:rw"
-    environment:
-        PROXY: "/connect"
-dwc_services:
-    image: cncflora/dwc-services
-    container_name: dwc_services
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "80"
-    environment:
-        PROXY: "/dwc_services"
-checklist:
-    image: cncflora/checklist
-    container_name: checklist
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "80"
-    environment:
-        BASE: "/checklist"
-        HOST: "${HOST}"
-occurrences:
-    image: cncflora/occurrences
-    container_name: occurrences
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "80"
-    environment:
-        BASE: "/occurrences"
-        HOST: "${HOST}"
-profiles:
-    image: cncflora/profiles
-    container_name: profiles
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "80"
-    environment:
-        BASE: "/profiles"
-        HOST: "${HOST}"
-assessments:
-    image: cncflora/assessments
-    container_name: assessments
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "80"
-    environment:
-        BASE: "/assessment"
-        HOST: "${HOST}"
-migrator:
-    image: cncflora/migrator
-    container_name: migrator
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "80"
-    environment:
-        HOST: "${HOST}"
-sig:
-    image: cncflora/sig
-    container_name: sig
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "80"
-    environment:
-        HOST: "${HOST}"
-reports:
-    image: cncflora/reports
-    container_name: reports
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "80"
-        - "9001"
-    volumes:
-        - "/root/.credentials:/var/www/.credentials"
-reports2:
-    image: cncflora/reports2
-    container_name: reports2
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "80"
-        - "9001"
-    volumes:
-        - "/root/.credentials:/var/www/.credentials"
-plataforma2:
-    image: cncflora/apache
-    container_name: plataforma2
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "80"
-    volumes:
-      - "/var/data/www-old:/var/www:rw"
-arquivos:
-    image: cncflora/apache
-    container_name: arquivos
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "80"
-    volumes:
-        - "/var/data/www:/var/www:rw"
-arquivos-sftp:
-    image: asavartzeth/sftp
-    container_name: arquivos-sftp
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "2223:22"
-    environment:
-        SFTP_USER: "cncflora"
-        SFTP_PASS: "1cncflora2"
-    volumes:
-        - "/var/data/www:$SFTP_DATA_DIR/chroot/www:rw"
-wiki:
-    image: cncflora/apache
-    container_name: wiki 
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "80"
-    volumes:
-        - "/var/data/wiki:/var/www:rw"
-wiki-sftp:
-    image: asavartzeth/sftp
-    container_name: wiki-sftp
-    net: 'nuvem'
-    restart: "always"
-    ports:
-        - "2222:22"
-    environment:
-        SFTP_USER: "cncflora"
-        SFTP_PASS: "1cncflora2"
-    volumes:
-        - "/var/data/wiki:$SFTP_DATA_DIR/chroot/wiki:rw"
-monitis:
-    image: cncflora/monitis
-    container_name: monitis
-    net: 'nuvem'
-    restart: "always"
-    pid: host
-    volumes:
-        - "/run:/run:ro"
-        - "/sys:/sys:ro"
+  proxy:
+      image: cncflora/proxy
+      container_name: proxy
+      restart: "always"
+      networks:
+        - nuvem
+      environment:
+          ROOT_APP: "portal"
+      ports:
+          - "80:80"
+      volumes:
+          - "/var/run/docker.sock:/var/run/docker.sock:ro"
+  elasticsearch:
+      image: cncflora/elasticsearch
+      container_name: elasticsearch
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "9200:9200"
+      volumes:
+          - "/var/data/elasticsearch/data:/usr/share/elasticsearch/data:rw"
+  kibana:
+      image: cncflora/kibana
+      container_name: kibana
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "80"
+  download_csv:
+      image: cncflora/download_csv
+      container_name: download_csv
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "80"
+      environment:
+          HOST: "${HOST}"
+  couchdb:
+      image: cncflora/couchdb
+      container_name: couchdb
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "5984:5984"
+      volumes:
+          - "/var/data/couchdb:/var/lib/couchdb:rw"
+  floradata:
+      image: cncflora/floradata
+      container_name: floradata
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - 80
+          - 9001
+  aka:
+      image: cncflora/aka
+      container_name: aka
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - 8080
+      volumes:
+          - "/var/data/aka:/var/data/aka:rw"
+      environment:
+          PROXY: "/aka"
+  services:
+      image: cncflora/services
+      container_name: services
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "80"
+      environment:
+          DB: "public"
+          BASE: "/services"
+  portal:
+      image: cncflora/portal
+      container_name: portal
+      networks:
+        - nuvem
+      restart: "always"
+      environment:
+          BASE: "/portal"
+      ports:
+          - 80
+  entrypoint: 
+      image: cncflora/entrypoint
+      container_name: entrypoint
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "80"
+  connect:
+      image: cncflora/connect
+      container_name: connect
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "80"
+      volumes:
+          - "/var/data/connect:/var/floraconnect:rw"
+      environment:
+          PROXY: "/connect"
+  dwc_services:
+      image: cncflora/dwc-services
+      container_name: dwc_services
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "80"
+      environment:
+          PROXY: "/dwc_services"
+  checklist:
+      image: cncflora/checklist
+      container_name: checklist
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "80"
+      environment:
+          BASE: "/checklist"
+          HOST: "${HOST}"
+  occurrences:
+      image: cncflora/occurrences
+      container_name: occurrences
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "80"
+      environment:
+          BASE: "/occurrences"
+          HOST: "${HOST}"
+  profiles:
+      image: cncflora/profiles
+      container_name: profiles
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "80"
+      environment:
+          BASE: "/profiles"
+          HOST: "${HOST}"
+  assessments:
+      image: cncflora/assessments
+      container_name: assessments
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "80"
+      environment:
+          BASE: "/assessment"
+          HOST: "${HOST}"
+  migrator:
+      image: cncflora/migrator
+      container_name: migrator
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "80"
+      environment:
+          HOST: "${HOST}"
+  sig:
+      image: cncflora/sig
+      container_name: sig
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "80"
+      environment:
+          HOST: "${HOST}"
+  reports:
+      image: cncflora/reports
+      container_name: reports
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "80"
+          - "9001"
+      volumes:
+          - "/root/.credentials:/var/www/.credentials"
+  reports2:
+      image: cncflora/reports2
+      container_name: reports2
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "80"
+  plataforma2:
+      image: cncflora/apache
+      container_name: plataforma2
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "80"
+      volumes:
+        - "/var/data/www-old:/var/www:rw"
+  arquivos:
+      image: cncflora/apache
+      container_name: arquivos
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "80"
+      volumes:
+          - "/var/data/www:/var/www:rw"
+  arquivos-sftp:
+      image: asavartzeth/sftp
+      container_name: arquivos-sftp
+      networks:
+        - nuvem
+      restart: "always"
+      ports:
+          - "2223:22"
+      environment:
+          SFTP_USER: "cncflora"
+          SFTP_PASS: "1cncflora2"
+      volumes:
+          - "/var/data/www:$SFTP_DATA_DIR/chroot/www:rw"
+#  wiki:
+    #      image: cncflora/apache
+#      container_name: wiki 
+#      networks:
+        #        - nuvem
+#      restart: "always"
+#      ports:
+        #          - "80"
+#      volumes:
+        #          - "/var/data/wiki:/var/www:rw"
+#  wiki-sftp:
+    #      image: asavartzeth/sftp
+#      container_name: wiki-sftp
+#      networks:
+        #        - nuvem
+#      restart: "always"
+#      ports:
+        #          - "2222:22"
+#      environment:
+        #          SFTP_USER: "cncflora"
+#          SFTP_PASS: "1cncflora2"
+#      volumes:
+        #          - "/var/data/wiki:$SFTP_DATA_DIR/chroot/wiki:rw"
+networks:
+  nuvem:
