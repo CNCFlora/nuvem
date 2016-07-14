@@ -17,7 +17,7 @@ proxy /elasticsearch elasticsearch:9200 {
   without /elasticsearch
 }
 
-proxy /couchdb couchdb:9200 {
+proxy /couchdb couchdb:5984 {
   proxy_header Host {host}
   proxy_header X-Real-IP {remote}
   proxy_header X-Forwarded-Proto {scheme}
