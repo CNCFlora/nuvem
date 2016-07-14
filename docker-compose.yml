@@ -10,6 +10,7 @@ services:
         - nuvem
       volumes:
         - ./Caddyfile:/etc/Caddyfile
+        - ./index.html:/var/www/html/index.html
         - /opt/caddy:/root/.caddy
   couchdb:
       image: cncflora/couchdb
