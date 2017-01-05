@@ -115,6 +115,7 @@ proxy /reports2 reports2 {
   proxy_header X-Real-IP {remote}
   proxy_header X-Forwarded-Proto {scheme}
   without /reports2
+  basicauth / cncflora cncflora250
 }
 
 proxy /migrator migrator {
@@ -137,4 +138,3 @@ proxy /plataforma2 plataforma2 {
   proxy_header X-Forwarded-Proto {scheme}
   without /plataforma2
 }
-
