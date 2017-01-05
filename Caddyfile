@@ -4,6 +4,7 @@ tls off
 gzip
 root /var/www/html
 ext .html
+basicauth /reports2 cncflora cncflora250
 
 proxy /portal portal {
   proxy_header Host {host}
@@ -114,7 +115,7 @@ proxy /reports2 reports2 {
   proxy_header Host {host}
   proxy_header X-Real-IP {remote}
   proxy_header X-Forwarded-Proto {scheme}
-  without /reports2 
+  without /reports2
 }
 
 proxy /migrator migrator {
