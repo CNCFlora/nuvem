@@ -35,6 +35,8 @@ services:
       networks:
         - nuvem
       restart: "always"
+      ports:
+        - 8001:80
   floradata:
       image: cncflora/floradata
       networks:
@@ -151,5 +153,18 @@ services:
           SFTP_PASS: "1cncflora2"
       volumes:
           - "/var/data/www:$SFTP_DATA_DIR/chroot/www:rw"
+  portainer:
+    image: portainer/portainer
+    restart: "always"
+    ports:
+      - "9000:9000"
+    command: -H unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
 networks:
   nuvem:
+
+
+volumes:
+  portainer_data:
